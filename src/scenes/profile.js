@@ -8,6 +8,7 @@ class Profile extends Component {
 
 	static navigationOptions = {
 	    tabBarLabel: "Profile",
+	    swipeEnabled: false,
 	    tabBarIcon: () => <Icon size={24} name="person" color="white" />
 	}
 

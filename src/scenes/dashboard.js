@@ -7,6 +7,7 @@ class Dashboard extends Component {
 
 	static navigationOptions = {
 	    tabBarLabel: "Dashboard",
+	    swipeEnabled: false,
 	    tabBarIcon: () => <Icon size={24} name="dashboard" color="white" />
 	}
 

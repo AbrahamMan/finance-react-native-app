@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import { Input } from '../components/forms';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Header } from '../components/layouts';
@@ -8,6 +8,7 @@ class Wallets extends Component {
 
 	static navigationOptions = {
 	    tabBarLabel: "Wallets",
+	    swipeEnabled: false,
 	    tabBarIcon: () => <Icon size={24} name="account-balance-wallet" color="white" />
 	}
 
@@ -16,7 +17,10 @@ class Wallets extends Component {
 		return (
 			<View>
 				<Header headerText="Wallet" />
-				<Text> Wallet </Text>
+				<FlatList
+				  data={[{key: 'a'}, {key: 'b'}]}
+				  renderItem={({item}) => <Text>{item.key}</Text>}
+				/>
 			</View>
 		);
 	}
