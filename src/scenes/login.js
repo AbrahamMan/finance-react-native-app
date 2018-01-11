@@ -19,7 +19,7 @@ class Login extends Component {
 				<Input />
 
 				<Button
-			      onPress={() => navigate('Details', { name: 'Jane'} )}
+			      onPress={() => navigate('Details')}
 			      title="Go to details"
 			    />
 			</View>

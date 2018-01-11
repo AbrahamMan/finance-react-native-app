@@ -9,12 +9,14 @@ export const WALLETS = [
 	{
 		id: 1,
 		description: 'Nasi Lemak + Teh Ais + Telur Mata',
-		value: 4.5
+		value: 4.5,
+		date: '2018-01-11 08:00:00',
 	},
 	{
 		id: 2,
 		description: 'Nasi Putih + Ayam + Teh Ais',
-		value: 7.5
+		value: 7.5,
+		date: '2018-01-11 08:00:00',
 	}
 ];
 
@@ -26,21 +28,25 @@ class Wallets extends Component {
 	    tabBarIcon: () => <Icon size={24} name="account-balance-wallet" color="white" />
 	}
 
-	_onPressItem = () => {
+	_onPressItem = (id: string) => {
+		const { navigate } = this.props.navigation;
+
 		// open other pages to edit transactions
-		console.log('_onPressItem');
+		console.log('_onPressItem', navigate);
+		navigate('Edits', { Item: id } );
 	};
 
 	_renderItem = ({item}) => (
 		<Single
-			id={item.id}
 			onPressItem={this._onPressItem}
-			description={item.description}
+			item={item}
+
 		/>
 	);
 
 	render() {
 		const { navigate } = this.props.navigation;
+		console.log(WALLETS);
 		return (
 			<View>
 				<Header headerText="Wallet" />
