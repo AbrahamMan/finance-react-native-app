@@ -4,6 +4,7 @@ import Dashboard from './scenes/dashboard';
 import Profile from './scenes/profile';
 import Wallets from './scenes/wallets';
 import Edits from './scenes/edit';
+import Date from './scenes/wallets/date';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { NavigationComponent } from 'react-native-material-bottom-navigation'
 
@@ -43,6 +44,9 @@ const Router = StackNavigator({
   },
   Edits: {
     screen: Edits,
+  },
+  Date: {
+    screen: Date,
   },
 });
 

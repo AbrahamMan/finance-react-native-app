@@ -38,7 +38,6 @@ class Wallets extends Component {
 		const { navigate } = this.props.navigation;
 
 		// open other pages to edit transactions
-		console.log('_onPressItem', navigate);
 		navigate('Edits', { Item: id } );
 	};
 

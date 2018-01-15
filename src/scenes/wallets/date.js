@@ -16,11 +16,13 @@ class Date extends Component {
     }
 
     componentWillMount(){
-    	const { date } = this.props.Item;
+    	const { Item } = this.props.navigation.state.params.Item;
+
+    	console.log('Item', Item);
 
     	let markedDates = {...this.state.markedDates};
 
-    	markedDates[date] = {selected: true};
+    	markedDates[Item.date] = {selected: true};
 
         this.setState({
           markedDates: markedDates
@@ -40,12 +42,12 @@ class Date extends Component {
     }
 
 	render() {
-		const { date } = this.props.Item;
+		const { Item } = this.props.navigation.state.params;
 		console.log('this.state.markedDates', this.state.markedDates);
 		return (
 			<Calendar
 	          style={styles.calendar}
-	          current={date}
+	          current={Item.date}
 	          markingType={'multi-dot'}
               markedDates={this.state.markedDates}
 	          // markedDates={{

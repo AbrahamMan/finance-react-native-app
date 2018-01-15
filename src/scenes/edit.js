@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Header, Card, CardSection } from '../components/layouts';
 import { Calendar } from 'react-native-calendars';
 import Date from './wallets/date';
 
 class Edit extends Component {
+    openDate = (Item) => {
+        console.log('openDate',Item);
+        const { navigate } = this.props.navigation;
+
+        // open other pages to edit transactions
+        navigate('Date', { Item } );
+    }
 	render() {
 		const { Item } = this.props.navigation.state.params;
 		return (
@@ -16,9 +23,12 @@ class Edit extends Component {
 				<CardSection>
 					<Text style={styles.textStyle}>{ Item.value}</Text>
 				</CardSection>
-				<CardSection>
-					<Date Item={Item} />
-				</CardSection>
+                <TouchableOpacity onPress={()=>{this.openDate({Item})}}>
+				    <CardSection>
+                        <Text style={styles.textStyle}>{ Item.date}</Text>
+					{/*<Date Item={Item} />*/}
+				    </CardSection>
+                </TouchableOpacity>
 			</View>
 
 		);
