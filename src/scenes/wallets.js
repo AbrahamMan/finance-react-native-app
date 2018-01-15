@@ -17,6 +17,12 @@ export const WALLETS = [
 		description: 'Nasi Putih + Ayam + Teh Ais',
 		value: 7.5,
 		date: '2018-01-12',
+	},
+	{
+		id: 3,
+		description: 'Nasi Putih + Ayam + Teh Ais',
+		value: 10.5,
+		date: '2018-01-15',
 	}
 ];
 
