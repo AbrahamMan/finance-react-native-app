@@ -10,13 +10,13 @@ export const WALLETS = [
 		id: 1,
 		description: 'Nasi Lemak + Teh Ais + Telur Mata',
 		value: 4.5,
-		date: '2018-01-11 08:00:00',
+		date: '2018-01-11',
 	},
 	{
 		id: 2,
 		description: 'Nasi Putih + Ayam + Teh Ais',
 		value: 7.5,
-		date: '2018-01-11 08:00:00',
+		date: '2018-01-12',
 	}
 ];
 
@@ -49,7 +49,7 @@ class Wallets extends Component {
 		console.log(WALLETS);
 		return (
 			<View>
-				<Header headerText="Wallet" />
+				<Header headerText="Wallet" buttonText="Create"/>
 				<FlatList
 				  data={WALLETS}
 				  renderItem={this._renderItem}

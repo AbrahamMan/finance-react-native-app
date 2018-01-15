@@ -9,6 +9,7 @@
   "dependencies": {
     "react": "16.2.0",
     "react-native": "0.52.0",
+    "react-native-calendars": "^1.16.1",
     "react-native-ios-status-bar-padding": "^1.1.0",
     "react-native-material-bottom-navigation": "^0.7.0",
     "react-native-vector-icons": "^4.5.0",

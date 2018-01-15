@@ -25,10 +25,10 @@ class Single extends Component {
 				}}
 			/>
 			<View style={{ flex: 4, flexDirection: 'row', justifyContent: 'space-around', alignSelf: 'center' }}>
-	            <Text style={{ fontFamily: DEFAULT_FONT_BOLD, paddingVertical: 10 }}>
+	            <Text style={{ flex: 3, fontFamily: DEFAULT_FONT_BOLD, paddingVertical: 10 }} numberOfLines={1}>
 	              {item.description}
 	            </Text>
-	            <Text style={{ fontFamily: DEFAULT_FONT_FAMILY, paddingVertical: 10, textAlign: 'center', alignSelf: 'center' }}>
+	            <Text style={{ flex: 1, fontFamily: DEFAULT_FONT_FAMILY, paddingVertical: 10, textAlign: 'center', alignSelf: 'center' }}>
 	              RM {item.value}
 	            </Text>
             </View>
