@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
 import { Input } from '../components/forms';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Header } from '../components/layouts';
+import { HeaderTop } from '../components/layouts';
+import request from '../helpers/request';
 
 class Profile extends Component {
 
@@ -12,11 +13,22 @@ class Profile extends Component {
 	    tabBarIcon: () => <Icon size={24} name="person" color="white" />
 	}
 
+	// componentWillMount(){
+	// 	  request
+	// 		.get('')
+	// 		.then(({ data }) => {
+	// 			console.log('welcome.then', data);
+	// 		})
+	// 		.catch(({ message, ...others }) => {
+	// 			console.log('welcome.catch', others);
+	// 		});
+	// }
+
 	render() {
 		const { navigate } = this.props.navigation;
 		return (
 			<View>
-				<Header headerText="Profile" />
+				<HeaderTop title="Profile"/>
 				<Text>
 					profile here
 				</Text>

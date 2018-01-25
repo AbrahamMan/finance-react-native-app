@@ -26,7 +26,6 @@ class Dashboard extends Component {
 
 	render() {
 		const { params } = this.props.navigation.state;
-		let paynowSrc = { uri: 'http://ridhwandaud.com' }
 		return (
 			<View style={styles.container}>
 				<Carousel

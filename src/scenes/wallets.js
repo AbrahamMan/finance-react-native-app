@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { View, Text, FlatList } from 'react-native';
 import { Input } from '../components/forms';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Header } from '../components/layouts';
+import { HeaderTop } from '../components/layouts';
 import Single from '../components/wallets/single';
+import tranActions from '../actions/tranActions';
 
 export const WALLETS = [ 
 	{
@@ -49,14 +52,23 @@ class Wallets extends Component {
 		/>
 	);
 
+	componentWillMount() {
+		const { actions } = this.props;
+
+		actions.requestTransList();
+	}
+
 	render() {
 		const { navigate } = this.props.navigation;
-		console.log(WALLETS);
+		const { trans, actions } = this.props;
 		return (
 			<View>
-				<Header headerText="Wallet" buttonText="Create"/>
+				<HeaderTop 
+					title="Wallets"
+					navigate={navigate}
+				/>
 				<FlatList
-				  data={WALLETS}
+				  data={trans}
 				  renderItem={this._renderItem}
 				/>
 			</View>
@@ -64,4 +76,30 @@ class Wallets extends Component {
 	}
 }
 
-export default Wallets;
+//export default Wallets;
+
+const mapStateToProps = (state) => {
+	console.log(state);
+	const { trans } = state.wallet;
+	return { trans };
+};
+
+// const mapStateToProps = state => {
+// 	const employees = _.map(state.employees, (val, uid) => {
+// 		return { ...val, uid};
+// 	});
+
+// 	return { employees };
+// };
+
+// const mapStateToProps = (state) => {
+// 	console.log(state);
+// 	//const { name, phone, shift } = state.walletReducer;
+// 	return state;
+// };
+
+const mapDispatchToProps = dispatch => ({
+	actions: bindActionCreators(tranActions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallets);

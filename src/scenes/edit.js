@@ -21,7 +21,7 @@ class Edit extends Component {
 					<Text style={styles.textStyle}>{ Item.description}</Text>
 				</CardSection>
 				<CardSection>
-					<Text style={styles.textStyle}>{ Item.value}</Text>
+					<Text style={styles.textStyle}>{ Item.amount}</Text>
 				</CardSection>
                 <TouchableOpacity onPress={()=>{this.openDate({Item})}}>
 				    <CardSection>
