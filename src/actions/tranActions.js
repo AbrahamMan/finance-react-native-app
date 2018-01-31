@@ -23,10 +23,18 @@ const requestTransList = callback => ((dispatch) => {
 	console.log('end');	
 });
 
-const storeTransaction = ({ state },callback) => ((dispatch) => {
+const storeTransaction = ({state} ,callback) => ((dispatch) => {
 	console.log('storeTransaction', state);
+
+	const payload = {
+		description: state.description,
+		amount: state.amount,
+		date: state.date,
+	};
+
+
 	request
-		.post('/transaction')
+		.post('/transaction', payload)
 		.then(async ({ data }) => {
 			console.log('success', data);
 			await dispatch(requestTransListSuccess({ trans: data }));
