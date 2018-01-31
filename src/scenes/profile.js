@@ -13,16 +13,16 @@ class Profile extends Component {
 	    tabBarIcon: () => <Icon size={24} name="person" color="white" />
 	}
 
-	// componentWillMount(){
-	// 	  request
-	// 		.get('')
-	// 		.then(({ data }) => {
-	// 			console.log('welcome.then', data);
-	// 		})
-	// 		.catch(({ message, ...others }) => {
-	// 			console.log('welcome.catch', others);
-	// 		});
-	// }
+	componentWillMount(){
+ 		  request
+ 			.get('/transactions')
+ 			.then(({ data }) => {
+ 				console.log('welcome.then', data);
+ 			})
+ 			.catch(({ message, ...others }) => {
+ 				console.log('welcome.catch', others);
+ 			});
+ 	}
 
 	render() {
 		const { navigate } = this.props.navigation;

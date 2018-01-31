@@ -3,6 +3,6 @@ import AuthReducer from './authReducer';
 import WalletReducer from './walletReducer';
 
 export default combineReducers({
-  auth: AuthReducer,
+  //auth: AuthReducer,
   wallet: WalletReducer,
 }); 
