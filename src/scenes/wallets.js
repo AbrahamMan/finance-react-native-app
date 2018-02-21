@@ -7,27 +7,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { HeaderTop } from '../components/layouts';
 import Single from '../components/wallets/single';
 import tranActions from '../actions/tranActions';
+//import { Spinner } from '../components/animations';
+import { Container, Spinner, Content } from 'native-base';
 
-export const WALLETS = [ 
-	{
-		id: 1,
-		description: 'Nasi Lemak + Teh Ais + Telur Mata',
-		value: 4.5,
-		date: '2018-01-11',
-	},
-	{
-		id: 2,
-		description: 'Nasi Putih + Ayam + Teh Ais',
-		value: 7.5,
-		date: '2018-01-12',
-	},
-	{
-		id: 3,
-		description: 'Nasi Putih + Ayam + Teh Ais',
-		value: 10.5,
-		date: '2018-01-15',
-	}
-];
 
 class Wallets extends Component {
 
@@ -60,29 +42,41 @@ class Wallets extends Component {
 
 	render() {
 		const { navigate } = this.props.navigation;
-		const { trans, actions } = this.props;
+		const { wallet, actions } = this.props;
 		return (
-			<View>
-				<HeaderTop 
-					title="Wallets"
-					navigate={navigate}
-				/>
-				<FlatList
-				  data={trans}
-				  renderItem={this._renderItem}
-				/>
-			</View>
+			<Container>
+					<HeaderTop 
+						title="Wallets"
+						navigate={navigate}
+					/>
+				{
+					wallet.isLoading ?
+
+					<Content>
+						<Spinner />
+					</Content>	
+
+					:
+
+					<FlatList
+					  data={wallet.trans}
+					  renderItem={this._renderItem}
+					/>
+				}
+				
+			</Container>
 		);
 	}
 }
 
 //export default Wallets;
 
-const mapStateToProps = (state) => {
-	console.log(state);
-	const { trans } = state.wallet;
-	return { trans };
-};
+const mapStateToProps = ({ wallet }) => ({
+	// console.log(wallet);
+	// const { trans } = state.wallet;
+	// return { trans };
+	wallet,
+});
 
 const mapDispatchToProps = dispatch => ({
 	actions: bindActionCreators(tranActions, dispatch),

@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Header, Card, CardSection, HeaderTop } from '../components/layouts';
 import tranActions from '../actions/tranActions';
+import { NavigationActions } from 'react-navigation';
 
 class Add extends Component {
 	constructor(props) {
@@ -22,8 +23,19 @@ class Add extends Component {
 		if(nextProps.state.wallet.goToTransList){
 			const { navigate } = this.props.navigation;
 
+			const resetAction = NavigationActions.reset({
+		        index: 0,
+		        actions: [
+		          NavigationActions.navigate({
+		            routeName: "Tabs"
+		          })
+		        ]
+		      });
+
         	// open other pages to edit transactions
-        	navigate('Wallets');
+        	//navigate('Wallets',);
+        	//
+        	this.props.navigation.dispatch(resetAction);
 		}
 	}
 

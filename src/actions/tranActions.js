@@ -1,15 +1,16 @@
 import request from '../helpers/request';
 import { 
-	REQUEST_TRANS_LIST,
+	REQUEST_TRANS_LIST_START,
 	REQUEST_TRANS_LIST_SUCCESS,
 	STORE_TRANSACTION_SUCCESS
 } from '../actions/types';
 
 
+const requestTransListStart = () => ({ type: REQUEST_TRANS_LIST_START });
 const requestTransListSuccess = payload => ({ type: REQUEST_TRANS_LIST_SUCCESS, payload });
 
 const requestTransList = callback => ((dispatch) => {
-	console.log('requestTransList');
+	dispatch(requestTransListStart());
 	request
 		.get('/transactions')
 		.then(async ({ data }) => {
