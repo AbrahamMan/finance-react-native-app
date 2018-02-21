@@ -28,7 +28,6 @@ export default (state = INITIAL_STATE, action) => {
 		case STORE_TRANSACTION_SUCCESS:
 			return {
 				...state,
-				...payload,
 				goToTransList: true
 			}				
 		default:

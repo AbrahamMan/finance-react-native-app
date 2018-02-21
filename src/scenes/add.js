@@ -31,10 +31,7 @@ class Add extends Component {
 		          })
 		        ]
 		      });
-
-        	// open other pages to edit transactions
-        	//navigate('Wallets',);
-        	//
+			
         	this.props.navigation.dispatch(resetAction);
 		}
 	}

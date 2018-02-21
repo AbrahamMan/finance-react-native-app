@@ -9,6 +9,7 @@ import Single from '../components/wallets/single';
 import tranActions from '../actions/tranActions';
 //import { Spinner } from '../components/animations';
 import { Container, Spinner, Content } from 'native-base';
+import { filterTotalByMonth, filterTotalByDate, filterTransactionByDate } from '../selector/walletSelector';
 
 
 class Wallets extends Component {
@@ -42,14 +43,30 @@ class Wallets extends Component {
 
 	render() {
 		const { navigate } = this.props.navigation;
-		const { wallet, actions } = this.props;
+		const { wallet, actions, totalByMonth, totalByDate } = this.props;
+		console.log('wallet', wallet);
 		return (
 			<Container>
 					<HeaderTop 
 						title="Wallets"
 						navigate={navigate}
 					/>
-				{
+					<View>
+						<Text>
+							Total This Month: { totalByMonth }
+						</Text>	
+					</View>
+					<View>
+						<Text>
+							Total Today: { totalByDate }
+						</Text>	
+					</View>
+					<FlatList
+					  data={wallet}
+					  renderItem={this._renderItem}
+					  keyExtractor={item => item.id}
+					/>
+				{ /*
 					wallet.isLoading ?
 
 					<Content>
@@ -61,7 +78,8 @@ class Wallets extends Component {
 					<FlatList
 					  data={wallet.trans}
 					  renderItem={this._renderItem}
-					/>
+					  keyExtractor={item => item.id}
+					/>*/
 				}
 				
 			</Container>
@@ -72,10 +90,9 @@ class Wallets extends Component {
 //export default Wallets;
 
 const mapStateToProps = ({ wallet }) => ({
-	// console.log(wallet);
-	// const { trans } = state.wallet;
-	// return { trans };
-	wallet,
+	wallet: filterTransactionByDate(wallet),
+	totalByMonth: filterTotalByMonth(wallet),
+	totalByDate: filterTotalByDate(wallet),
 });
 
 const mapDispatchToProps = dispatch => ({
