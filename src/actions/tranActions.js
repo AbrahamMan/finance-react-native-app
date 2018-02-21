@@ -1,7 +1,8 @@
 import request from '../helpers/request';
 import { 
 	REQUEST_TRANS_LIST,
-	REQUEST_TRANS_LIST_SUCCESS
+	REQUEST_TRANS_LIST_SUCCESS,
+	STORE_TRANSACTION_SUCCESS
 } from '../actions/types';
 
 
@@ -16,12 +17,15 @@ const requestTransList = callback => ((dispatch) => {
 			await dispatch(requestTransListSuccess({ trans: data }));
 			callback && callback();
 		})
-		.catch(({ message }) => {
+		.catch(({ message, ...others }) => {
+			console.log('error', others);
 			callback && callbackError();
 		});
 
 	console.log('end');	
 });
+
+const storeTransactionSuccess = payload => ({ type: STORE_TRANSACTION_SUCCESS, payload });
 
 const storeTransaction = ({state} ,callback) => ((dispatch) => {
 	console.log('storeTransaction', state);
@@ -37,7 +41,7 @@ const storeTransaction = ({state} ,callback) => ((dispatch) => {
 		.post('/transaction', payload)
 		.then(async ({ data }) => {
 			console.log('success', data);
-			await dispatch(requestTransListSuccess({ trans: data }));
+			await dispatch(storeTransactionSuccess({ trans: data }));
 			callback && callback();
 		})
 		.catch(({ message, ...others }) => {

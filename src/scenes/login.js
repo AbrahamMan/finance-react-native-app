@@ -8,7 +8,7 @@ class Login extends Component {
 
 	static navigationOptions = {
 	    tabBarLabel: "Wallet",
-	    tabBarIcon: () => <Icon size={24} name="account-balance-wallet" color="white" />
+	    tabBarIcon: () => <Icon size={24} name="account-balance-wallet" color="#3389EE" />
 	}
 
 	render() {

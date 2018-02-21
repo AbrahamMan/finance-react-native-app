@@ -9,14 +9,24 @@ import tranActions from '../actions/tranActions';
 class Add extends Component {
 	constructor(props) {
 	    super(props);
-	    this.state = { amount: '10', description: 'Makan Nasi Ayam', date: '2018-01-28' };
-	  }
+	    this.state = { amount: '', description: '', date: '' };
+	}
 
-	 save = () =>{
+	save = () =>{
 	 	console.log('save');
 	 	const { actions } = this.props;
 	 	actions.storeTransaction({ state: this.state });
-	 } 
+	}
+
+	componentWillReceiveProps(nextProps){
+		if(nextProps.state.wallet.goToTransList){
+			const { navigate } = this.props.navigation;
+
+        	// open other pages to edit transactions
+        	navigate('Wallets');
+		}
+	}
+
 	render() {
 		const { container } = styles;
 		return (
@@ -45,7 +55,7 @@ class Add extends Component {
 			    <Button 
 			    	onPress={this.save}
 			    	title="Save"
-  					color="#841584"
+  					color="#3389EE"
 			    />
 		    </View>
 		);
@@ -58,8 +68,13 @@ const styles = {
 	}
 }
 
+const mapStateToProps = (state) => {
+	console.log(state);
+	return { state };
+};
+
 const mapDispatchToProps = dispatch => ({
 	actions: bindActionCreators(tranActions, dispatch),
 });
 
-export default connect(null,mapDispatchToProps)(Add);
+export default connect(mapStateToProps,mapDispatchToProps)(Add);

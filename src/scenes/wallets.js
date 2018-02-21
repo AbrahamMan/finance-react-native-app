@@ -34,7 +34,7 @@ class Wallets extends Component {
 	static navigationOptions = {
 	    tabBarLabel: "Wallets",
 	    swipeEnabled: false,
-	    tabBarIcon: () => <Icon size={24} name="account-balance-wallet" color="white" />
+	    tabBarIcon: () => <Icon size={24} name="account-balance-wallet" color="#3389EE" />
 	}
 
 	_onPressItem = (id: string) => {
@@ -83,20 +83,6 @@ const mapStateToProps = (state) => {
 	const { trans } = state.wallet;
 	return { trans };
 };
-
-// const mapStateToProps = state => {
-// 	const employees = _.map(state.employees, (val, uid) => {
-// 		return { ...val, uid};
-// 	});
-
-// 	return { employees };
-// };
-
-// const mapStateToProps = (state) => {
-// 	console.log(state);
-// 	//const { name, phone, shift } = state.walletReducer;
-// 	return state;
-// };
 
 const mapDispatchToProps = dispatch => ({
 	actions: bindActionCreators(tranActions, dispatch),

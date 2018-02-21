@@ -1,10 +1,12 @@
 import { 
 	REQUEST_TRANS_LIST,
-	REQUEST_TRANS_LIST_SUCCESS
+	REQUEST_TRANS_LIST_SUCCESS,
+	STORE_TRANSACTION_SUCCESS
 } from '../actions/types';
 
 const INITIAL_STATE = { 
 	trans: [],
+	goToTransList: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -19,7 +21,13 @@ export default (state = INITIAL_STATE, action) => {
 			return { 
 				...state,
 				...payload
-			};				
+			};
+		case STORE_TRANSACTION_SUCCESS:
+			return {
+				...state,
+				...payload,
+				goToTransList: true
+			}				
 		default:
 		  return state;
 	}

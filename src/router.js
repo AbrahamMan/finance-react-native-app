@@ -19,17 +19,17 @@ const Tabs = TabNavigator({
   tabBarPosition: 'bottom',
   tabBarOptions: {
     bottomNavigationOptions: {
-      labelColor: 'white',
-      rippleColor: 'white',
+      labelColor: '#3389EE',
+      rippleColor: '#3389EE',
       tabs: {
         Dashboard: {
-          barBackgroundColor: '#00796B'
+          barBackgroundColor: '#ffffff'
         },
         Wallets: {
-          barBackgroundColor: '#00796B'
+          barBackgroundColor: '#ffffff'
         },
         Profile: {
-          barBackgroundColor: '#00796B'
+          barBackgroundColor: '#ffffff'
         }
       }
     }
