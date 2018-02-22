@@ -29,7 +29,7 @@ export default (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				goToTransList: true
-			}				
+			};		
 		default:
 		  return state;
 	}

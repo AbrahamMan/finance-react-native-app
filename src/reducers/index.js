@@ -4,5 +4,5 @@ import WalletReducer from './walletReducer';
 
 export default combineReducers({
   //auth: AuthReducer,
-  wallet: WalletReducer,
+  walletReducer: WalletReducer,
 }); 

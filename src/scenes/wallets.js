@@ -7,7 +7,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { HeaderTop } from '../components/layouts';
 import Single from '../components/wallets/single';
 import tranActions from '../actions/tranActions';
-//import { Spinner } from '../components/animations';
 import { Container, Spinner, Content } from 'native-base';
 import { filterTotalByMonth, filterTotalByDate, filterTransactionByDate } from '../selector/walletSelector';
 
@@ -46,53 +45,37 @@ class Wallets extends Component {
 		const { wallet, actions, totalByMonth, totalByDate } = this.props;
 		console.log('wallet', wallet);
 		return (
-			<Container>
-					<HeaderTop 
-						title="Wallets"
-						navigate={navigate}
-					/>
-					<View>
-						<Text>
-							Total This Month: { totalByMonth }
-						</Text>	
-					</View>
-					<View>
-						<Text>
-							Total Today: { totalByDate }
-						</Text>	
-					</View>
-					<FlatList
-					  data={wallet}
-					  renderItem={this._renderItem}
-					  keyExtractor={item => item.id}
-					/>
-				{ /*
-					wallet.isLoading ?
-
-					<Content>
-						<Spinner />
-					</Content>	
-
-					:
-
-					<FlatList
-					  data={wallet.trans}
-					  renderItem={this._renderItem}
-					  keyExtractor={item => item.id}
-					/>*/
-				}
-				
-			</Container>
+			<View>
+				<HeaderTop 
+					title="Wallets"
+					navigate={navigate}
+				/>
+				<View>
+					<Text>
+						Total This Month: { totalByMonth }
+					</Text>	
+				</View>
+				<View>
+					<Text>
+						Total Today: { totalByDate }
+					</Text>	
+				</View>
+				<FlatList
+				  data={wallet}
+				  renderItem={this._renderItem}
+				  keyExtractor={item => item.id}
+				/>
+			</View>
 		);
 	}
 }
 
 //export default Wallets;
 
-const mapStateToProps = ({ wallet }) => ({
-	wallet: filterTransactionByDate(wallet),
-	totalByMonth: filterTotalByMonth(wallet),
-	totalByDate: filterTotalByDate(wallet),
+const mapStateToProps = ({ walletReducer }) => ({
+	wallet: filterTransactionByDate(walletReducer),
+	totalByMonth: filterTotalByMonth(walletReducer),
+	totalByDate: filterTotalByDate(walletReducer),
 });
 
 const mapDispatchToProps = dispatch => ({
