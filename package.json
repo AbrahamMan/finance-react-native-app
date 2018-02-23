@@ -19,6 +19,7 @@
     "react-native-material-bottom-navigation": "^0.7.0",
     "react-native-sentry": "^0.32.1",
     "react-native-snap-carousel": "^3.5.0",
+    "react-native-swiper": "^1.5.13",
     "react-native-vector-icons": "^4.5.0",
     "react-navigation": "^1.0.0-beta.23",
     "react-redux": "^5.0.6",
