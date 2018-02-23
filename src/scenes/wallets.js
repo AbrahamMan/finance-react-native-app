@@ -111,7 +111,6 @@ class Wallets extends Component {
 	// );
 
 	changeDateSelection(index){
-		console.log('asd', index);
 		const { actions } = this.props;
 		actions.changeDateSelection({ index });
 	}
@@ -120,7 +119,6 @@ class Wallets extends Component {
 		const { navigate } = this.props.navigation;
 		const { yesterdayWallet, todayWallet, totalByMonth, walletsGroupByDates } = this.props;
 		const { arrayDates, totalByDate } = walletsGroupByDates;
-		console.log('walletsGroupByDates', walletsGroupByDates);
 		return (
 			<View style={{ flex: 1 }}>
 				<HeaderTop 
@@ -137,6 +135,7 @@ class Wallets extends Component {
 					showsButtons={false}
 					loop={false}
 					onIndexChanged={this.changeDateSelection}
+					index={arrayDates.length-1}
 				>
 					{
 						arrayDates.map(wallet =>{
