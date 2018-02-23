@@ -8,6 +8,7 @@ import Add from './scenes/add';
 import Date from './scenes/wallets/date';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { NavigationComponent } from 'react-native-material-bottom-navigation';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Tabs = TabNavigator({
   Wallets: { screen: Wallets },
@@ -18,17 +19,23 @@ const Tabs = TabNavigator({
   tabBarPosition: 'bottom',
   tabBarOptions: {
     bottomNavigationOptions: {
-      labelColor: '#3389EE',
-      rippleColor: '#3389EE',
+      labelColor: '#616161',
+      rippleColor: '#3bb84a',
       tabs: {
         Dashboard: {
-          barBackgroundColor: '#ffffff'
+          barBackgroundColor: '#ffffff',
+          activeIcon: <Icon size={24} color="#3bb84a" name="dashboard" />,
+          activeLabelColor: '#3bb84a'
         },
         Wallets: {
-          barBackgroundColor: '#ffffff'
+          barBackgroundColor: '#ffffff',
+          activeIcon: <Icon size={24} color="#3bb84a" name="account-balance-wallet" />,
+          activeLabelColor: '#3bb84a'
         },
         Profile: {
-          barBackgroundColor: '#ffffff'
+          barBackgroundColor: '#ffffff',
+          activeIcon: <Icon size={24} color="#3bb84a" name="person" />,
+          activeLabelColor: '#3bb84a'
         }
       }
     }

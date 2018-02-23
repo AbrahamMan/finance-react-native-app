@@ -9,7 +9,7 @@ class HeaderTop extends Component {
 		const { navigate } = this.props;
 
 		return (
-			<Header style={{ backgroundColor: '#3389EE' }}>
+			<Header style={{ backgroundColor: '#3bb84a' }}>
 	          <Left>
 	          </Left>
 	          <Body>

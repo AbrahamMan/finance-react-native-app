@@ -64,7 +64,7 @@ class Wallets extends Component {
 	static navigationOptions = {
 	    tabBarLabel: "Wallets",
 	    swipeEnabled: false,
-	    tabBarIcon: () => <Icon size={24} name="account-balance-wallet" color="#3389EE" />
+	    tabBarIcon: () => <Icon size={24} name="account-balance-wallet" color="#616161" />
 	}
 
 	constructor(props) {
