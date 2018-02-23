@@ -89,73 +89,114 @@ class Wallets extends Component {
 	);
 
 	componentWillMount() {
-		const { actions } = this.props;
+		const { actions, walletsGroupByDates } = this.props;
+
+		const { arrayDates, dates } = walletsGroupByDates;
 
 		actions.requestTransList();
+
+		this.setState({ activeIndex: arrayDates.length - 1 });
 	}
 
-	// renderHeader(props){
-	// 	//const { totalByDate } = this.props.walletsGroupByDates;
-	// 	console.log('props', props);
-	// 	return (
-	// 		<Text>
-	// 			{totalByDate.map}
-	// 		</Text>	
-	// 	);
-	// }
-
-	// renderHeader = ({item}) => (
-	// 	<Text>
-	// 		{console.log('item', item)}
-	// 	</Text>	
-	// );
-
 	changeDateSelection(index){
-		const { actions } = this.props;
-		actions.changeDateSelection({ index });
+		this.setState({ activeIndex: index });
 	}
 
 	render() {
 		const { navigate } = this.props.navigation;
 		const { yesterdayWallet, todayWallet, totalByMonth, walletsGroupByDates } = this.props;
-		const { arrayDates, totalByDate } = walletsGroupByDates;
+		const { arrayDates, totalByDates, dates } = walletsGroupByDates;
+		const { walletContainer, totalMonth, walletBalance, spendingMonth, walletBackground, dateContainer, totalStyle, dateStyle } = styles;
 		return (
-			<View style={{ flex: 1 }}>
+			<View style={walletBackground}>
 				<HeaderTop 
 					title="Wallets"
 					navigate={navigate}
 				/>
-				<View>
-					<Text>
-						Total This Month: { totalByMonth }
-					</Text>	
-				</View>
-				<Swiper 
-					style={styles.wrapper} 
-					showsButtons={false}
-					loop={false}
-					onIndexChanged={this.changeDateSelection}
-					index={arrayDates.length-1}
-				>
-					{
-						arrayDates.map(wallet =>{
-							return (
-								<FlatList
-									// ListHeaderComponent={this.renderHeader}
-									style={{ flex: 6 }}
-								  	data={wallet}
-								  	renderItem={this._renderItem}
-								  	keyExtractor={item => item.id}
-								/>
-							)
-						})
-					}
+				<View style={walletContainer}>
+					<View style={totalMonth}>
+						<View style={walletBalance}>
+							<Text>{ totalByMonth }</Text>
+							<Text>Wallet balance</Text>
+						</View>	
+						<View style={spendingMonth}>
+							<Text>{ totalByMonth } </Text>
+							<Text>Month change </Text>
+						</View>	
+					</View>
+					<View style={dateContainer}>	
+						<View style={dateStyle}>
+							<Text>{ dates[this.state.activeIndex]}</Text>
+						</View>
+						<View style={totalStyle}>
+							<Text>{ totalByDates[this.state.activeIndex] }</Text>
+						</View>	
+					</View>
+					<Swiper 
+						style={styles.wrapper} 
+						showsButtons={false}
+						loop={false}
+						onIndexChanged={this.changeDateSelection}
+						index={arrayDates.length-1}
+					>
+						{
+							arrayDates.map(wallet =>{
+								return (
+									<FlatList
+										// ListHeaderComponent={this.renderHeader}
+										style={{ flex: 6 }}
+									  	data={wallet}
+									  	renderItem={this._renderItem}
+									  	keyExtractor={wallet => wallet.id}
+									/>
+								)
+							})
+						}
 
-				</Swiper>
-				
+					</Swiper>
+				</View>
 			</View>
 		);
 	}
+}
+
+styles = {
+	walletBackground: {
+		flex: 1,
+	},
+	walletContainer: {
+		padding: 10,
+		flex: 1,
+	},
+	totalMonth : {
+		padding: 10,
+		backgroundColor: 'white',
+		flexDirection: 'row',
+	},
+	walletBalance: {
+		flex: 1,
+		alignItems: 'center',
+	},
+	spendingMonth: {
+		flex: 1,
+		alignItems: 'center',
+	},
+	dateStyle: {
+		flex: 1,
+		alignItems: 'flex-start',
+	},
+	totalStyle: {
+		flex: 1,
+		alignItems: 'flex-end',
+	},
+	dateContainer: {
+		marginTop: 10,
+		paddingVertical: 10,
+		paddingHorizontal: 20,
+		backgroundColor: 'white',
+		flexDirection: 'row',
+	}
+
 }
 
 //export default Wallets;

@@ -34,6 +34,7 @@ export const filterTotalByDate = createSelector(
     console.log('totalByDates', totalByDates);
 
     return {
+      dates,
       arrayDates,
       totalByDates,
     }
