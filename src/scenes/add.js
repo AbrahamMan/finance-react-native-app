@@ -6,11 +6,12 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Header, Card, CardSection, HeaderTop } from '../components/layouts';
 import tranActions from '../actions/tranActions';
 import { NavigationActions } from 'react-navigation';
+import moment from 'moment';
 
 class Add extends Component {
 	constructor(props) {
 	    super(props);
-	    this.state = { amount: '', description: '', date: '' };
+	    this.state = { amount: '', description: '', date: moment().format('YYYY-MM-DD') };
 	}
 
 	save = () =>{
