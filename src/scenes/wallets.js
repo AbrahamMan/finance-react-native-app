@@ -7,9 +7,10 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { HeaderTop } from '../components/layouts';
 import Single from '../components/wallets/single';
 import tranActions from '../actions/tranActions';
-import { Container, Spinner, Content } from 'native-base';
+import { Container, Spinner, Content, Fab } from 'native-base';
 import { filterTotalByMonth, filterTotalByDate, filterYesterdayTransaction, filterTodayTransaction } from '../selector/walletSelector';
 import Swiper from 'react-native-swiper';
+import moment from 'moment';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -71,6 +72,9 @@ class Wallets extends Component {
 		super(props);
 		//this.renderHeader = this.renderHeader.bind(this);
 		this.changeDateSelection = this.changeDateSelection.bind(this);
+		this.state = {
+	      active: 'true'
+	    };
 	}
 
 	_onPressItem = (id: string) => {
@@ -89,6 +93,36 @@ class Wallets extends Component {
 	);
 
 	componentWillMount() {
+
+		// moment().calendar(null,{
+		//     lastDay : '[Yesterday]',
+		//     sameDay : '[Today]',
+		//     nextDay : '[Tomorrow]',
+		//     lastWeek : '[last] dddd',
+		//     nextWeek : 'dddd',
+		//     sameElse : 'L'
+		// })
+
+		moment.locale('en', {
+		    calendar: {
+		        lastDay: function () {
+		            return '[Yesterday]';
+		        },
+		        sameDay: function () {
+		            return '[Today]';
+		        },
+		        lastWeek: function () {
+		            return 'ddd, DD MMM YYYY';
+		        },
+		        nextDay: function () {
+		            return '[Future], DD MMM YYYY';
+		        },
+		        nextWeek: function () {
+		            return '[Future], DD MMM YYYY';
+		        }
+		    }
+		});
+
 		const { actions, walletsGroupByDates } = this.props;
 
 		const { arrayDates, dates } = walletsGroupByDates;
@@ -116,20 +150,20 @@ class Wallets extends Component {
 				<View style={walletContainer}>
 					<View style={totalMonth}>
 						<View style={walletBalance}>
-							<Text>{ totalByMonth }</Text>
+							<Text>{ totalByMonth.toFixed(2) }</Text>
 							<Text>Wallet balance</Text>
 						</View>	
 						<View style={spendingMonth}>
-							<Text>{ totalByMonth } </Text>
+							<Text>{ totalByMonth.toFixed(2) } </Text>
 							<Text>Month change </Text>
 						</View>	
 					</View>
 					<View style={dateContainer}>	
 						<View style={dateStyle}>
-							<Text>{ dates[this.state.activeIndex]}</Text>
+							<Text>{moment(dates[this.state.activeIndex]).calendar()}</Text>
 						</View>
 						<View style={totalStyle}>
-							<Text>{ totalByDates[this.state.activeIndex] }</Text>
+							<Text>{ totalByDates[this.state.activeIndex].toFixed(2) }</Text>
 						</View>	
 					</View>
 					<Swiper 
@@ -147,13 +181,20 @@ class Wallets extends Component {
 										style={{ flex: 6 }}
 									  	data={wallet}
 									  	renderItem={this._renderItem}
-									  	keyExtractor={wallet => wallet.id}
+									  	keyExtractor={item => item.id}
 									/>
 								)
 							})
 						}
 
 					</Swiper>
+					<Fab
+						active={this.state.active}
+						style={{ backgroundColor: '#3bb84a' }}
+						onPress={() => navigate('Add')}
+					>
+						<Icon name="add" />
+					</Fab>	
 				</View>
 			</View>
 		);

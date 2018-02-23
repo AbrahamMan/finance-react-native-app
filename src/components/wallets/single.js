@@ -29,7 +29,7 @@ class Single extends Component {
 	              {item.description}
 	            </Text>
 	            <Text style={{ flex: 1, fontFamily: DEFAULT_FONT_FAMILY, paddingVertical: 10, textAlign: 'center', alignSelf: 'center' }}>
-	              {item.amount}
+	              {item.amount.toFixed(2)}
 	            </Text>
             </View>
         </CardSection>

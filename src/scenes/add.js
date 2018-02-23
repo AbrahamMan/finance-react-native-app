@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, TextInput, Button } from 'react-native';
+import { View, TouchableOpacity, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -7,6 +7,7 @@ import { Header, Card, CardSection, HeaderTop } from '../components/layouts';
 import tranActions from '../actions/tranActions';
 import { NavigationActions } from 'react-navigation';
 import moment from 'moment';
+import { Button, Text, Item, Input, Label } from 'native-base';
 
 class Add extends Component {
 	constructor(props) {
@@ -41,33 +42,32 @@ class Add extends Component {
 		const { container, button } = styles;
 		return (
 			<View style={container}>
-				<Text> Amount </Text>
-				<TextInput
-					style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-					onChangeText={(amount) => this.setState({amount})}
-					underlineColorAndroid='transparent'
-					value={this.state.amount}
-			    />
-			    <Text> Description </Text>
-				<TextInput
-					style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-					onChangeText={(description) => this.setState({description})}
-					underlineColorAndroid='transparent'
-					value={this.state.description}
-			    />
-			    <Text> Date </Text>
-				<TextInput
-					style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-					underlineColorAndroid='transparent'
-					onChangeText={(date) => this.setState({date})}
-					value={this.state.date}
-			    />
+			    <Item inlineLabel>
+	              <Label>RM</Label>
+	              <Input 
+	              	style={{height: 70, fontSize: 30 }}
+	              	onChangeText={(amount) => this.setState({amount})}
+	              	placeholder="0"
+	              />
+	            </Item>
+			    <Item>
+		            <Icon active name='help' style={{fontSize: 30}} />
+		            <Input placeholder='Category' onChangeText={(category) => this.setState({category})}/>
+		        </Item>
+			    <Item>
+		            <Icon active name='subject' style={{fontSize: 25}} />
+		            <Input placeholder='Note' onChangeText={(description) => this.setState({description})}/>
+		        </Item>
+			    <Item>
+		            <Icon active name='event' style={{fontSize: 30}} />
+		            <Input placeholder='Today' onChangeText={(date) => this.setState({date})} value={this.state.date}/>
+		        </Item>
 			    <View style={button}>
 				    <Button 
 				    	onPress={this.save}
-				    	title="Save"
-	  					color="#3389EE"
-				    />
+				    >
+				    	<Text>Save </Text>
+				    </Button>
 			    </View>
 		    </View>
 		);

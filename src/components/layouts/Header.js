@@ -6,8 +6,6 @@ import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'nativ
 // Make a component
 class HeaderTop extends Component {
 	render(){
-		const { navigate } = this.props;
-
 		return (
 			<Header style={{ backgroundColor: '#3bb84a' }}>
 	          <Left>
@@ -15,11 +13,6 @@ class HeaderTop extends Component {
 	          <Body>
 	            <Title>{this.props.title}</Title>
 	          </Body>
-	          <Right>
-	            <Button transparent onPress={() => navigate('Add')}>
-	              <Icon name='add' style={{ color: '#ffffff'}}/>
-	            </Button>
-	          </Right>
 	        </Header>
 		);
 	}
