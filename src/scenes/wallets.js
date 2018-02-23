@@ -36,8 +36,28 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold',
-  }
+  },
+  paginationStyle: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10
+  },
+  paginationText: {
+    color: 'white',
+    fontSize: 20
+  },
+
 })
+
+const renderPagination = (index, total, context) => {
+  return (
+    <View style={styles.paginationStyle}>
+      <Text style={{ color: 'grey' }}>
+        <Text style={styles.paginationText}>{index + 1}</Text>/{total}
+      </Text>
+    </View>
+  )
+}
 
 class Wallets extends Component {
 
@@ -87,7 +107,13 @@ class Wallets extends Component {
 						Total Today: { totalByDate }
 					</Text>	
 				</View>
-				<Swiper style={styles.wrapper} showsButtons={false}>
+				<Swiper 
+					style={styles.wrapper} 
+					showsButtons={false}
+					loop={false}
+					onIndexChanged={(index)=>console.log('index', index)}
+					renderPagination={renderPagination}
+				>
 					<FlatList
 						style={{ flex: 6 }}
 					  	data={yesterdayWallet}
