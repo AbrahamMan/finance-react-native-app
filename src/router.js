@@ -33,14 +33,15 @@ const Tabs = TabNavigator({
         }
       }
     }
-  }
+  },
+  animationEnabled: false,
 });
 
 const Router = StackNavigator({
   Tabs: {
     screen: Tabs,
     navigationOptions:()=>({
-            header:null
+            header:null,
         }),
   },
   Edits: {
