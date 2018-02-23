@@ -1,15 +1,43 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { Input } from '../components/forms';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { HeaderTop } from '../components/layouts';
 import Single from '../components/wallets/single';
 import tranActions from '../actions/tranActions';
 import { Container, Spinner, Content } from 'native-base';
-import { filterTotalByMonth, filterTotalByDate, filterTransactionByDate } from '../selector/walletSelector';
+import { filterTotalByMonth, filterTotalByDate, filterYesterdayTransaction, filterTodayTransaction } from '../selector/walletSelector';
+import Swiper from 'react-native-swiper';
 
+const styles = StyleSheet.create({
+  wrapper: {
+  },
+  slide1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#9DD6EB',
+  },
+  slide2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#97CAE5',
+  },
+  slide3: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#92BBD9',
+  },
+  text: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold',
+  }
+})
 
 class Wallets extends Component {
 
@@ -42,10 +70,9 @@ class Wallets extends Component {
 
 	render() {
 		const { navigate } = this.props.navigation;
-		const { wallet, actions, totalByMonth, totalByDate } = this.props;
-		console.log('wallet', wallet);
+		const { yesterdayWallet, todayWallet, totalByMonth, totalByDate } = this.props;
 		return (
-			<View>
+			<View style={{ flex: 1 }}>
 				<HeaderTop 
 					title="Wallets"
 					navigate={navigate}
@@ -60,11 +87,21 @@ class Wallets extends Component {
 						Total Today: { totalByDate }
 					</Text>	
 				</View>
-				<FlatList
-				  data={wallet}
-				  renderItem={this._renderItem}
-				  keyExtractor={item => item.id}
-				/>
+				<Swiper style={styles.wrapper} showsButtons={false}>
+					<FlatList
+						style={{ flex: 6 }}
+					  	data={yesterdayWallet}
+					  	renderItem={this._renderItem}
+					  	keyExtractor={item => item.id}
+					/>
+					<FlatList
+						style={{ flex: 6 }}
+					  	data={todayWallet}
+					  	renderItem={this._renderItem}
+					  	keyExtractor={item => item.id}
+					/>
+				</Swiper>
+				
 			</View>
 		);
 	}
@@ -73,7 +110,8 @@ class Wallets extends Component {
 //export default Wallets;
 
 const mapStateToProps = ({ walletReducer }) => ({
-	wallet: filterTransactionByDate(walletReducer),
+	yesterdayWallet: filterYesterdayTransaction(walletReducer),
+	todayWallet: filterTodayTransaction(walletReducer),
 	totalByMonth: filterTotalByMonth(walletReducer),
 	totalByDate: filterTotalByDate(walletReducer),
 });

@@ -38,7 +38,7 @@ class Add extends Component {
 	}
 
 	render() {
-		const { container } = styles;
+		const { container, button } = styles;
 		return (
 			<View style={container}>
 				<Text> Amount </Text>
@@ -62,11 +62,13 @@ class Add extends Component {
 					onChangeText={(date) => this.setState({date})}
 					value={this.state.date}
 			    />
-			    <Button 
-			    	onPress={this.save}
-			    	title="Save"
-  					color="#3389EE"
-			    />
+			    <View style={button}>
+				    <Button 
+				    	onPress={this.save}
+				    	title="Save"
+	  					color="#3389EE"
+				    />
+			    </View>
 		    </View>
 		);
 	}
@@ -75,6 +77,11 @@ class Add extends Component {
 const styles = {
 	container: {
 		padding: 16,
+		flex: 1,
+		backgroundColor: '#ffffff',
+	},
+	button: {
+		marginTop: 10,
 	}
 }
 

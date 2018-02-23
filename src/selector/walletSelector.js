@@ -20,7 +20,16 @@ export const filterTotalByMonth = createSelector(
   }
 )
 
-export const filterTransactionByDate = createSelector(
+export const filterYesterdayTransaction = createSelector(
+  getWallets,
+  (items) => {
+    let transactionsToday = _.filter(items, {date: moment().subtract(1, 'days').format('YYYY-MM-DD')});
+    console.log('transactionsToday',transactionsToday);
+    return transactionsToday;
+  }
+)
+
+export const filterTodayTransaction = createSelector(
   getWallets,
   (items) => {
     let transactionsToday = _.filter(items, {date: moment().format('YYYY-MM-DD')});
