@@ -7,8 +7,7 @@ import Edits from './scenes/edit';
 import Add from './scenes/add';
 import Date from './scenes/wallets/date';
 import { TabNavigator, StackNavigator } from 'react-navigation';
-import { NavigationComponent } from 'react-native-material-bottom-navigation'
-
+import { NavigationComponent } from 'react-native-material-bottom-navigation';
 
 const Tabs = TabNavigator({
   Wallets: { screen: Wallets },

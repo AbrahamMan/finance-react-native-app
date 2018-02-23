@@ -67,6 +67,12 @@ class Wallets extends Component {
 	    tabBarIcon: () => <Icon size={24} name="account-balance-wallet" color="#3389EE" />
 	}
 
+	constructor(props) {
+		super(props);
+		//this.renderHeader = this.renderHeader.bind(this);
+		this.changeDateSelection = this.changeDateSelection.bind(this);
+	}
+
 	_onPressItem = (id: string) => {
 		const { navigate } = this.props.navigation;
 
@@ -88,9 +94,33 @@ class Wallets extends Component {
 		actions.requestTransList();
 	}
 
+	// renderHeader(props){
+	// 	//const { totalByDate } = this.props.walletsGroupByDates;
+	// 	console.log('props', props);
+	// 	return (
+	// 		<Text>
+	// 			{totalByDate.map}
+	// 		</Text>	
+	// 	);
+	// }
+
+	// renderHeader = ({item}) => (
+	// 	<Text>
+	// 		{console.log('item', item)}
+	// 	</Text>	
+	// );
+
+	changeDateSelection(index){
+		console.log('asd', index);
+		const { actions } = this.props;
+		actions.changeDateSelection({ index });
+	}
+
 	render() {
 		const { navigate } = this.props.navigation;
-		const { yesterdayWallet, todayWallet, totalByMonth, totalByDate } = this.props;
+		const { yesterdayWallet, todayWallet, totalByMonth, walletsGroupByDates } = this.props;
+		const { arrayDates, totalByDate } = walletsGroupByDates;
+		console.log('walletsGroupByDates', walletsGroupByDates);
 		return (
 			<View style={{ flex: 1 }}>
 				<HeaderTop 
@@ -102,30 +132,26 @@ class Wallets extends Component {
 						Total This Month: { totalByMonth }
 					</Text>	
 				</View>
-				<View>
-					<Text>
-						Total Today: { totalByDate }
-					</Text>	
-				</View>
 				<Swiper 
 					style={styles.wrapper} 
 					showsButtons={false}
 					loop={false}
-					onIndexChanged={(index)=>console.log('index', index)}
-					renderPagination={renderPagination}
+					onIndexChanged={this.changeDateSelection}
 				>
-					<FlatList
-						style={{ flex: 6 }}
-					  	data={yesterdayWallet}
-					  	renderItem={this._renderItem}
-					  	keyExtractor={item => item.id}
-					/>
-					<FlatList
-						style={{ flex: 6 }}
-					  	data={todayWallet}
-					  	renderItem={this._renderItem}
-					  	keyExtractor={item => item.id}
-					/>
+					{
+						arrayDates.map(wallet =>{
+							return (
+								<FlatList
+									// ListHeaderComponent={this.renderHeader}
+									style={{ flex: 6 }}
+								  	data={wallet}
+								  	renderItem={this._renderItem}
+								  	keyExtractor={item => item.id}
+								/>
+							)
+						})
+					}
+
 				</Swiper>
 				
 			</View>
@@ -139,7 +165,7 @@ const mapStateToProps = ({ walletReducer }) => ({
 	yesterdayWallet: filterYesterdayTransaction(walletReducer),
 	todayWallet: filterTodayTransaction(walletReducer),
 	totalByMonth: filterTotalByMonth(walletReducer),
-	totalByDate: filterTotalByDate(walletReducer),
+	walletsGroupByDates: filterTotalByDate(walletReducer),
 });
 
 const mapDispatchToProps = dispatch => ({

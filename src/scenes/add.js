@@ -21,7 +21,7 @@ class Add extends Component {
 	}
 
 	componentWillReceiveProps(nextProps){
-		if(nextProps.state.wallet.goToTransList){
+		if(nextProps.state.walletReducer.goToTransList){
 			const { navigate } = this.props.navigation;
 
 			const resetAction = NavigationActions.reset({

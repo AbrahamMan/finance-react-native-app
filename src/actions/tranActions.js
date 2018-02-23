@@ -50,8 +50,13 @@ const storeTransaction = ({state} ,callback) => ((dispatch) => {
 			callback && callbackError();
 		});
 });
+
+const changeDateSelection = ({index}) => ((dispatch) =>{
+	console.log('changeDateSelection', index);
+});
  
 export default {
 	requestTransList,
 	storeTransaction,
+	changeDateSelection,
 };
