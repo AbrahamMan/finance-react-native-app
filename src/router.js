@@ -44,6 +44,12 @@ const Tabs = TabNavigator({
 });
 
 const Router = StackNavigator({
+  Login: {
+    screen: Login,
+    navigationOptions:()=>({
+        header:null,
+    }),
+  },
   Tabs: {
     screen: Tabs,
     navigationOptions:()=>({
