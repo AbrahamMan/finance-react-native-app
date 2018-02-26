@@ -6,6 +6,7 @@ import authActions from '../actions/authActions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { HeaderTop } from '../components/layouts';
 import request from '../helpers/request';
+import { NavigationActions } from 'react-navigation';
 import { Container, Header, Left, Button, Body, Right, Title, Content, Text,  Form, Item, Input, Label } from 'native-base';
 
 class Profile extends Component {
@@ -24,8 +25,17 @@ class Profile extends Component {
 
 	logout(){
 		console.log('logout');
-		const { navigate } = this.props.navigation;
-		this.props.userActionsCreator.logout({navigate});
+		const { navigation } = this.props;
+
+		const resetAction = NavigationActions.reset({
+	        index: 0,
+	        actions: [
+	          NavigationActions.navigate({
+	            routeName: "Login"
+	          })
+	        ]
+	      });
+		this.props.userActionsCreator.logout({navigation, resetAction});
 	}
 
 	render() {

@@ -7,7 +7,7 @@ import request from '../helpers/request';
 
 const loginUserSuccess = payload => ({ type: LOGIN_USER_SUCCESS, payload });
 
-const loginUser = ({ payload, navigate }) => (dispatch) =>{
+const loginUser = ({ payload, navigation, resetAction }) => (dispatch) =>{
 
   console.log('payload loginUser', payload);
 
@@ -17,7 +17,7 @@ const loginUser = ({ payload, navigate }) => (dispatch) =>{
     console.log('success', data);
     request.defaults.headers.common.Authorization = data.secret;
     await dispatch(loginUserSuccess(data));
-    navigate('Tabs');
+    navigation.dispatch(resetAction);
     //callback && callback();
   })
   .catch(({ message, ...others }) => {
@@ -36,9 +36,9 @@ const doInitialLoad = () => (async (dispatch, getState) => {
 
 const logoutStart = () => ({ type: USER_LOGOUT });
 
-const logout = ({ navigate }) => (dispatch) => {
+const logout = ({ navigation, resetAction }) => (dispatch) => {
   dispatch(logoutStart());
-  navigate('Login');
+  navigation.dispatch(resetAction);
 };
 
 export default {

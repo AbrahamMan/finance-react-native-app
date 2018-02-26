@@ -62,8 +62,6 @@ export const filterTodayTransaction = createSelector(
   filterTotalByDate,
   (items, totalToday) => {
     let transactionsToday = _.filter(items, {date: moment().format('YYYY-MM-DD')});
-    console.log('filterTotalByDate', totalToday);
-    console.log('transactionsToday', transactionsToday);
     return transactionsToday ;
   }
 )

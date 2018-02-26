@@ -81,6 +81,9 @@ class Wallets extends Component {
 		        },
 		        nextWeek: function () {
 		            return '[Future], DD MMM YYYY';
+		        },
+		        sameElse: function () {
+		            return 'ddd, DD MMM YYYY';
 		        }
 		    }
 		});

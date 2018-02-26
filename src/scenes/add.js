@@ -17,8 +17,7 @@ class Add extends Component {
 
 	save = () =>{
 	 	console.log('save');
-	 	const { actions } = this.props;
-	 	const { navigation } = this.props;
+	 	const { actions, navigation } = this.props;
 
 	 	const resetAction = NavigationActions.reset({
 	        index: 0,
