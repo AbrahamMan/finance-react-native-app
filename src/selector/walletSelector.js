@@ -8,6 +8,10 @@ export const filterTotalByDate = createSelector(
   getWallets,
   (transactions) => {
 
+    if(!transactions){
+      return null;
+    }
+
     const dates = _.keys(_.groupBy(transactions, 'date'));
 
     let arrayDates = [];
@@ -38,6 +42,9 @@ export const filterTotalByDate = createSelector(
 export const filterTotalByMonth = createSelector(
   getWallets,
   (items) => {
+    if(!items){
+      return null;
+    }
     return items.reduce((acc, item) => acc + item.amount, 0);
   }
 )

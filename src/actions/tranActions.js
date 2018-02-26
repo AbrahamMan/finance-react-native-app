@@ -28,8 +28,7 @@ const requestTransList = callback => ((dispatch) => {
 
 const storeTransactionSuccess = payload => ({ type: STORE_TRANSACTION_SUCCESS, payload });
 
-const storeTransaction = ({state} ,callback) => ((dispatch) => {
-	console.log('storeTransaction', state);
+const storeTransaction = ({state, navigation, resetAction} ,callback) => ((dispatch, getState) => {
 
 	const payload = {
 		description: state.description,
@@ -37,13 +36,13 @@ const storeTransaction = ({state} ,callback) => ((dispatch) => {
 		date: state.date,
 	};
 
-
 	request
 		.post('/transaction', payload)
 		.then(async ({ data }) => {
 			console.log('success', data);
 			await dispatch(storeTransactionSuccess(data));
 			callback && callback();
+			navigation.dispatch(resetAction)
 		})
 		.catch(({ message, ...others }) => {
 			console.log('error', others);

@@ -18,24 +18,19 @@ class Add extends Component {
 	save = () =>{
 	 	console.log('save');
 	 	const { actions } = this.props;
-	 	actions.storeTransaction({ state: this.state });
-	}
+	 	const { navigation } = this.props;
 
-	componentWillReceiveProps(nextProps){
-		if(nextProps.state.WalletReducer.goToTransList){
-			const { navigate } = this.props.navigation;
+	 	const resetAction = NavigationActions.reset({
+	        index: 0,
+	        actions: [
+	          NavigationActions.navigate({
+	            routeName: "Tabs"
+	          })
+	        ]
+	      });
 
-			const resetAction = NavigationActions.reset({
-		        index: 0,
-		        actions: [
-		          NavigationActions.navigate({
-		            routeName: "Tabs"
-		          })
-		        ]
-		      });
-			
-        	this.props.navigation.dispatch(resetAction);
-		}
+	 	actions.storeTransaction({ state: this.state , navigation, resetAction});
+	 	
 	}
 
 	render() {
