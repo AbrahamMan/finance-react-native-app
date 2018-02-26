@@ -6,7 +6,7 @@ import { Sentry } from 'react-native-sentry';
 import configureStore from './store';
 import { persistStore } from 'redux-persist';
 
-const WHITELISTED_REDUCER = ['walletReducer'];
+const WHITELISTED_REDUCER = ['WalletReducer', 'AuthReducer'];
 
 
 class App extends Component{

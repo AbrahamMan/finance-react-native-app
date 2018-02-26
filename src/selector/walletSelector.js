@@ -2,15 +2,13 @@ import { createSelector } from 'reselect';
 import _ from 'lodash';
 import moment from 'moment';
 
-const getWallets = (state) => state.trans;
+const getWallets = (state) => state.trans.transactions;
 
 export const filterTotalByDate = createSelector(
   getWallets,
   (transactions) => {
 
     const dates = _.keys(_.groupBy(transactions, 'date'));
-
-    console.log('dates',dates);
 
     let arrayDates = [];
     let totalByDates = [];
@@ -23,26 +21,17 @@ export const filterTotalByDate = createSelector(
 
     })
 
-    console.log('arrayDates', arrayDates);
-
     arrayDates.map(date => {
       total = date.reduce((acc, item) => acc + item.amount, 0);
 
       totalByDates.push(total);
     });
 
-    console.log('totalByDates', totalByDates);
-
     return {
       dates,
       arrayDates,
       totalByDates,
     }
-
-    
-
-    let totalToday = _.filter(transactions, {date: moment().format('YYYY-MM-DD')});
-    return totalToday.reduce((acc, item) => acc + item.amount, 0);
   }
 )
 

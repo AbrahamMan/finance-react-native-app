@@ -42,7 +42,7 @@ const storeTransaction = ({state} ,callback) => ((dispatch) => {
 		.post('/transaction', payload)
 		.then(async ({ data }) => {
 			console.log('success', data);
-			await dispatch(storeTransactionSuccess({ trans: data }));
+			await dispatch(storeTransactionSuccess(data));
 			callback && callback();
 		})
 		.catch(({ message, ...others }) => {

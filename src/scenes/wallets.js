@@ -242,11 +242,11 @@ styles = {
 
 //export default Wallets;
 
-const mapStateToProps = ({ walletReducer }) => ({
-	yesterdayWallet: filterYesterdayTransaction(walletReducer),
-	todayWallet: filterTodayTransaction(walletReducer),
-	totalByMonth: filterTotalByMonth(walletReducer),
-	walletsGroupByDates: filterTotalByDate(walletReducer),
+const mapStateToProps = ({ WalletReducer }) => ({
+	yesterdayWallet: filterYesterdayTransaction(WalletReducer),
+	todayWallet: filterTodayTransaction(WalletReducer),
+	totalByMonth: filterTotalByMonth(WalletReducer),
+	walletsGroupByDates: filterTotalByDate(WalletReducer),
 });
 
 const mapDispatchToProps = dispatch => ({

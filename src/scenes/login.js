@@ -13,6 +13,19 @@ class Login extends Component {
     	this.login = this.login.bind(this);
 	}
 
+	componentWillMount() {
+		const { isLoggedIn, authActionsCreator } = this.props;
+
+		console.log('this.props', this.props);
+
+		const { navigate } = this.props.navigation;
+
+		if (isLoggedIn) {
+			authActionsCreator.doInitialLoad();
+			navigate('Tabs');
+		}
+	}
+
 	login(){
 		const { email, password } = this.state;
 		const { authActionsCreator } = this.props;
@@ -68,8 +81,12 @@ class Login extends Component {
 	}
 }
 
+const mapStateToProps = ({ AuthReducer }) => ({
+	isLoggedIn: AuthReducer.isLoggedIn,
+});
+
 const mapDispatchToProps = dispatch => ({
 	authActionsCreator: bindActionCreators(authActions, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
