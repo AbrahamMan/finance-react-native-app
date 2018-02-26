@@ -29,13 +29,14 @@ class Login extends Component {
 	login(){
 		const { email, password } = this.state;
 		const { authActionsCreator } = this.props;
+		const { navigate } = this.props.navigation;
 
 		const payload = {
 			email,
 			password,
 		}
 
-		authActionsCreator.loginUser({payload});
+		authActionsCreator.loginUser({payload, navigate});
 	}
 
 	render() {
