@@ -30,6 +30,7 @@ const storeTransaction = ({state, navigation, resetAction} ,callback) => ((dispa
 		description: state.description,
 		amount: state.amount,
 		date: state.date,
+		type: state.type,
 	};
 
 	request

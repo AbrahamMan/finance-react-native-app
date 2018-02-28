@@ -67,8 +67,8 @@ class Login extends Component {
 		          </Body>
 		          <Right />
 		        </Header>
-		        <Content>
-		          <Form>
+		        <Content padder>
+		          <Form padder>
 		            <Item 
 		            	rounded
 		            	style={itemStyle}

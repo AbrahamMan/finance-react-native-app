@@ -57,15 +57,6 @@ class Wallets extends Component {
 
 	componentWillMount() {
 
-		// moment().calendar(null,{
-		//     lastDay : '[Yesterday]',
-		//     sameDay : '[Today]',
-		//     nextDay : '[Tomorrow]',
-		//     lastWeek : '[last] dddd',
-		//     nextWeek : 'dddd',
-		//     sameElse : 'L'
-		// })
-
 		moment.updateLocale('en', {
 		    calendar: {
 		        lastDay: function () {
@@ -91,8 +82,8 @@ class Wallets extends Component {
 
 		const { transactionsActions, walletActions, walletsGroupByDates } = this.props;
 
-		transactionsActions.requestTransList();
 		walletActions.requestWalletList();
+		transactionsActions.requestTransList();
 
 		if(walletsGroupByDates)
 		{
@@ -112,7 +103,6 @@ class Wallets extends Component {
 		const { navigate } = this.props.navigation;
 		const { yesterdayWallet, todayWallet, totalByWeek, walletsGroupByDates, wallet } = this.props;
 		const { walletContainer, totalMonth, walletBalance, spendingMonth, walletBackground, dateContainer, totalStyle, dateStyle } = styles;
-		console.log('wallet', wallet);
 		return (
 			<View style={walletBackground}>
 				<HeaderTop 
@@ -120,7 +110,7 @@ class Wallets extends Component {
 					navigate={navigate}
 				/>
 				{
-					walletsGroupByDates ?
+					wallet ?
 				
 					<View style={walletContainer}>
 						<View style={totalMonth}>
@@ -235,8 +225,8 @@ const mapStateToProps = ({ TransactionsReducer, WalletReducer }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	transactionsActions: bindActionCreators(transactionsActions, dispatch),
 	walletActions: bindActionCreators(walletActions, dispatch),
+	transactionsActions: bindActionCreators(transactionsActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallets);
