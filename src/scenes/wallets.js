@@ -8,7 +8,7 @@ import { HeaderTop } from '../components/layouts';
 import Single from '../components/wallets/single';
 import tranActions from '../actions/tranActions';
 import { Container, Spinner, Content, Fab } from 'native-base';
-import { filterTotalByMonth, filterTotalByDate, filterYesterdayTransaction, filterTodayTransaction } from '../selector/walletSelector';
+import { filterTotalByWeek, filterTotalByDate, filterYesterdayTransaction, filterTodayTransaction } from '../selector/walletSelector';
 import Swiper from 'react-native-swiper';
 import moment from 'moment';
 
@@ -65,7 +65,7 @@ class Wallets extends Component {
 		//     sameElse : 'L'
 		// })
 
-		moment.locale('en', {
+		moment.updateLocale('en', {
 		    calendar: {
 		        lastDay: function () {
 		            return '[Yesterday]';
@@ -108,8 +108,9 @@ class Wallets extends Component {
 
 	render() {
 		const { navigate } = this.props.navigation;
-		const { yesterdayWallet, todayWallet, totalByMonth, walletsGroupByDates } = this.props;
-		console.log('walletsGroupByDates', walletsGroupByDates);
+		const { yesterdayWallet, todayWallet, totalByWeek, walletsGroupByDates, WalletReducer } = this.props;
+		const { wallet } = this.props.WalletReducer;
+		console.log('wallet', wallet);
 		//const { arrayDates, totalByDates, dates } = walletsGroupByDates;
 		const { walletContainer, totalMonth, walletBalance, spendingMonth, walletBackground, dateContainer, totalStyle, dateStyle } = styles;
 		return (
@@ -119,17 +120,17 @@ class Wallets extends Component {
 					navigate={navigate}
 				/>
 				{
-					walletsGroupByDates ?
+					WalletReducer ?
 				
 					<View style={walletContainer}>
 						<View style={totalMonth}>
 							<View style={walletBalance}>
-								<Text>{ totalByMonth.toFixed(2) }</Text>
+								<Text>{ wallet.balance.toFixed(2) }</Text>
 								<Text>Wallet balance</Text>
 							</View>	
 							<View style={spendingMonth}>
-								<Text>{ totalByMonth.toFixed(2) } </Text>
-								<Text>Month change </Text>
+								<Text>{ totalByWeek.toFixed(2) } </Text>
+								<Text>Weekly change </Text>
 							</View>	
 						</View>
 						<View style={dateContainer}>	
@@ -226,9 +227,10 @@ styles = {
 //export default Wallets;
 
 const mapStateToProps = ({ WalletReducer }) => ({
+	WalletReducer,
 	yesterdayWallet: filterYesterdayTransaction(WalletReducer),
 	todayWallet: filterTodayTransaction(WalletReducer),
-	totalByMonth: filterTotalByMonth(WalletReducer),
+	totalByWeek: filterTotalByWeek(WalletReducer),
 	walletsGroupByDates: filterTotalByDate(WalletReducer),
 });
 

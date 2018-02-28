@@ -12,7 +12,7 @@ import { Button, Text, Item, Input, Label } from 'native-base';
 class Add extends Component {
 	constructor(props) {
 	    super(props);
-	    this.state = { amount: '', description: '', date: moment().format('YYYY-MM-DD') };
+	    this.state = { amount: '', description: '', date: moment().format('YYYY-MM-DD'), type: 'debit' };
 	}
 
 	save = () =>{
@@ -47,6 +47,10 @@ class Add extends Component {
 			    <Item>
 		            <Icon active name='help' style={{fontSize: 30}} />
 		            <Input placeholder='Category' onChangeText={(category) => this.setState({category})}/>
+		        </Item>
+		        <Item>
+		            <Icon active name='event' style={{fontSize: 30}} />
+		            <Input placeholder='Type' onChangeText={(type) => this.setState({type})} value={this.state.type}/>
 		        </Item>
 			    <Item>
 		            <Icon active name='subject' style={{fontSize: 25}} />

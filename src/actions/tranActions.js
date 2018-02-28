@@ -14,7 +14,7 @@ const requestTransList = callback => ((dispatch) => {
 	request
 		.get('/transactions')
 		.then(async ({ data }) => {
-			await dispatch(requestTransListSuccess({ trans: data }));
+			await dispatch(requestTransListSuccess(data));
 			callback && callback();
 		})
 		.catch(({ message, ...others }) => {
