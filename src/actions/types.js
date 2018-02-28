@@ -7,3 +7,6 @@ export const REQUEST_TRANS_LIST_START = 'request_trans_list_start';
 export const REQUEST_TRANS_LIST_SUCCESS = 'request_trans_list_success';
 export const STORE_TRANSACTION_SUCCESS = 'store_transaction_success';
 export const USER_LOGOUT = 'user_logout';
+export const REQUEST_WALLET_LIST_START = 'request_wallet_list_start';
+export const REQUEST_WALLET_LIST_SUCCESS = 'request_wallet_list_success';
+export const REQUEST_WALLET_LIST_FAILURE= 'request_wallet_list_failure';

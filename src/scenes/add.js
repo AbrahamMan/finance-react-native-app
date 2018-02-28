@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Header, Card, CardSection, HeaderTop } from '../components/layouts';
-import tranActions from '../actions/tranActions';
+import transactionsActions from '../actions/transactionsActions';
 import { NavigationActions } from 'react-navigation';
 import moment from 'moment';
 import { Button, Text, Item, Input, Label } from 'native-base';
@@ -12,13 +12,12 @@ import { Button, Text, Item, Input, Label } from 'native-base';
 class Add extends Component {
 	constructor(props) {
 	    super(props);
-	    this.state = { amount: '', description: '', date: moment().format('YYYY-MM-DD') };
+	    this.state = { amount: '', description: '', date: moment().format('YYYY-MM-DD'), type: 'debit' };
 	}
 
 	save = () =>{
 	 	console.log('save');
-	 	const { actions } = this.props;
-	 	const { navigation } = this.props;
+	 	const { transactionsActions, navigation } = this.props;
 
 	 	const resetAction = NavigationActions.reset({
 	        index: 0,
@@ -29,7 +28,7 @@ class Add extends Component {
 	        ]
 	      });
 
-	 	actions.storeTransaction({ state: this.state , navigation, resetAction});
+	 	transactionsActions.storeTransaction({ state: this.state , navigation, resetAction});
 	 	
 	}
 
@@ -48,6 +47,10 @@ class Add extends Component {
 			    <Item>
 		            <Icon active name='help' style={{fontSize: 30}} />
 		            <Input placeholder='Category' onChangeText={(category) => this.setState({category})}/>
+		        </Item>
+		        <Item>
+		            <Icon active name='event' style={{fontSize: 30}} />
+		            <Input placeholder='Type' onChangeText={(type) => this.setState({type})} value={this.state.type}/>
 		        </Item>
 			    <Item>
 		            <Icon active name='subject' style={{fontSize: 25}} />
@@ -86,7 +89,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-	actions: bindActionCreators(tranActions, dispatch),
+	transactionsActions: bindActionCreators(transactionsActions, dispatch),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Add);
