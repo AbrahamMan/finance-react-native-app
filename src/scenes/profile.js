@@ -6,7 +6,7 @@ import authActions from '../actions/authActions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { HeaderTop } from '../components/layouts';
 import request from '../helpers/request';
-import { Container, Header, Left, Button, Body, Right, Title, Content, Text,  Form, Item, Input, Label } from 'native-base';
+import { Container, Header, Left, Button, Body, Right, Title, Content, Text,  Form, Item, Input, Label, Separator, ListItem } from 'native-base';
 
 class Profile extends Component {
 
@@ -44,13 +44,31 @@ class Profile extends Component {
 		          <Right />
 		        </Header>
 		        <Content>
-		          <Button 
-		          	onPress={this.logout}
-		          >
-		          	<Text>
-		          		Logout
-		          	</Text>
-		          </Button>		
+					<Separator bordered>
+						<Text>FORWARD</Text>
+					</Separator>
+					<ListItem >
+						<Text>Aaron Bennet</Text>
+					</ListItem>
+					<ListItem>
+						<Text>Claire Barclay</Text>
+					</ListItem>
+					<ListItem last>
+						<Text>Kelso Brittany</Text>
+					</ListItem>
+					<Separator bordered>
+						<Text>MIDFIELD</Text>
+					</Separator>
+					<ListItem>
+						<Text>Caroline Aaron</Text>
+					</ListItem>
+					<Button 
+						onPress={this.logout}
+					>
+						<Text>
+							Logout
+						</Text>
+					</Button>		
 		        </Content>
 			</Container>
 		);
