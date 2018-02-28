@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Header, Card, CardSection, HeaderTop } from '../components/layouts';
-import tranActions from '../actions/tranActions';
+import transactionsActions from '../actions/transactionsActions';
 import { NavigationActions } from 'react-navigation';
 import moment from 'moment';
 import { Button, Text, Item, Input, Label } from 'native-base';
@@ -17,7 +17,7 @@ class Add extends Component {
 
 	save = () =>{
 	 	console.log('save');
-	 	const { actions, navigation } = this.props;
+	 	const { transactionsActions, navigation } = this.props;
 
 	 	const resetAction = NavigationActions.reset({
 	        index: 0,
@@ -28,7 +28,7 @@ class Add extends Component {
 	        ]
 	      });
 
-	 	actions.storeTransaction({ state: this.state , navigation, resetAction});
+	 	transactionsActions.storeTransaction({ state: this.state , navigation, resetAction});
 	 	
 	}
 
@@ -89,7 +89,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-	actions: bindActionCreators(tranActions, dispatch),
+	transactionsActions: bindActionCreators(transactionsActions, dispatch),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Add);

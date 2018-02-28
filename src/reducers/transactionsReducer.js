@@ -1,35 +1,39 @@
 import { 
-	REQUEST_WALLET_LIST_START,
-	REQUEST_WALLET_LIST_SUCCESS,
-	REQUEST_WALLET_LIST_FAILURE,
+	REQUEST_TRANS_LIST_START,
+	REQUEST_TRANS_LIST_SUCCESS,
+	STORE_TRANSACTION_SUCCESS,
 	USER_LOGOUT
 } from '../actions/types';
 
 const INITIAL_STATE = { 
-	balance: '',
+	transactions: [],
+	wallet: [],
+	goToTransList: false,
 	isLoading: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
 	const { type, payload } = action;
 	switch (type) {
-		case REQUEST_WALLET_LIST_START:
+		case REQUEST_TRANS_LIST_START:
 			return { 
 				...state, 
 				...payload,
 				isLoading: true 
 			};
-		case REQUEST_WALLET_LIST_SUCCESS:
+		case REQUEST_TRANS_LIST_SUCCESS:
 			return { 
 				...state,
 				...payload,
 				isLoading: false
 			};
-		case REQUEST_WALLET_LIST_FAILURE:
+		case STORE_TRANSACTION_SUCCESS:
 			return {
 				...state,
+				goToTransList: true
 			};
 		case USER_LOGOUT:
+			console.log('Logging out');
 			return { ...INITIAL_STATE };			
 		default:
 		  return state;

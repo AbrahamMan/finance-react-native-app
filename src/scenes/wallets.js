@@ -6,7 +6,8 @@ import { Input } from '../components/forms';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { HeaderTop } from '../components/layouts';
 import Single from '../components/wallets/single';
-import tranActions from '../actions/tranActions';
+import transactionsActions from '../actions/transactionsActions';
+import walletActions from '../actions/walletActions';
 import { Container, Spinner, Content, Fab } from 'native-base';
 import { filterTotalByWeek, filterTotalByDate, filterYesterdayTransaction, filterTodayTransaction } from '../selector/walletSelector';
 import Swiper from 'react-native-swiper';
@@ -88,9 +89,10 @@ class Wallets extends Component {
 		    }
 		});
 
-		const { actions, walletsGroupByDates } = this.props;
+		const { transactionsActions, walletActions, walletsGroupByDates } = this.props;
 
-		actions.requestTransList();
+		transactionsActions.requestTransList();
+		walletActions.requestWalletList();
 
 		if(walletsGroupByDates)
 		{
@@ -108,11 +110,9 @@ class Wallets extends Component {
 
 	render() {
 		const { navigate } = this.props.navigation;
-		const { yesterdayWallet, todayWallet, totalByWeek, walletsGroupByDates, WalletReducer } = this.props;
-		const { wallet } = this.props.WalletReducer;
-		console.log('wallet', wallet);
-		//const { arrayDates, totalByDates, dates } = walletsGroupByDates;
+		const { yesterdayWallet, todayWallet, totalByWeek, walletsGroupByDates, wallet } = this.props;
 		const { walletContainer, totalMonth, walletBalance, spendingMonth, walletBackground, dateContainer, totalStyle, dateStyle } = styles;
+		console.log('wallet', wallet);
 		return (
 			<View style={walletBackground}>
 				<HeaderTop 
@@ -120,16 +120,16 @@ class Wallets extends Component {
 					navigate={navigate}
 				/>
 				{
-					WalletReducer ?
+					walletsGroupByDates ?
 				
 					<View style={walletContainer}>
 						<View style={totalMonth}>
 							<View style={walletBalance}>
-								<Text>{ wallet.balance.toFixed(2) }</Text>
+								<Text>{ wallet.balance }</Text>
 								<Text>Wallet balance</Text>
 							</View>	
 							<View style={spendingMonth}>
-								<Text>{ totalByWeek.toFixed(2) } </Text>
+								<Text>{ totalByWeek } </Text>
 								<Text>Weekly change </Text>
 							</View>	
 						</View>
@@ -138,7 +138,7 @@ class Wallets extends Component {
 								<Text>{moment(walletsGroupByDates.dates[this.state.activeIndex]).calendar()}</Text>
 							</View>
 							<View style={totalStyle}>
-								<Text>{ walletsGroupByDates.totalByDates[this.state.activeIndex].toFixed(2) }</Text>
+								<Text>{ walletsGroupByDates.totalByDates[this.state.activeIndex] }</Text>
 							</View>	
 						</View>
 						<Swiper 
@@ -226,16 +226,17 @@ styles = {
 
 //export default Wallets;
 
-const mapStateToProps = ({ WalletReducer }) => ({
-	WalletReducer,
-	yesterdayWallet: filterYesterdayTransaction(WalletReducer),
-	todayWallet: filterTodayTransaction(WalletReducer),
-	totalByWeek: filterTotalByWeek(WalletReducer),
-	walletsGroupByDates: filterTotalByDate(WalletReducer),
+const mapStateToProps = ({ TransactionsReducer, WalletReducer }) => ({
+	wallet: WalletReducer,
+	yesterdayWallet: filterYesterdayTransaction(TransactionsReducer),
+	todayWallet: filterTodayTransaction(TransactionsReducer),
+	totalByWeek: filterTotalByWeek(TransactionsReducer),
+	walletsGroupByDates: filterTotalByDate(TransactionsReducer),
 });
 
 const mapDispatchToProps = dispatch => ({
-	actions: bindActionCreators(tranActions, dispatch),
+	transactionsActions: bindActionCreators(transactionsActions, dispatch),
+	walletActions: bindActionCreators(walletActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallets);
