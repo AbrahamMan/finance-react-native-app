@@ -14,16 +14,12 @@ const requestTransList = callback => ((dispatch) => {
 	request
 		.get('/transactions')
 		.then(async ({ data }) => {
-			console.log('success', data);
-			await dispatch(requestTransListSuccess({ trans: data }));
+			await dispatch(requestTransListSuccess(data));
 			callback && callback();
 		})
 		.catch(({ message, ...others }) => {
-			console.log('error', others);
 			callback && callbackError();
 		});
-
-	console.log('end');	
 });
 
 const storeTransactionSuccess = payload => ({ type: STORE_TRANSACTION_SUCCESS, payload });
@@ -34,18 +30,17 @@ const storeTransaction = ({state, navigation, resetAction} ,callback) => ((dispa
 		description: state.description,
 		amount: state.amount,
 		date: state.date,
+		type: state.type,
 	};
 
 	request
 		.post('/transaction', payload)
 		.then(async ({ data }) => {
-			console.log('success', data);
 			await dispatch(storeTransactionSuccess(data));
 			callback && callback();
 			navigation.dispatch(resetAction)
 		})
 		.catch(({ message, ...others }) => {
-			console.log('error', others);
 			callback && callbackError();
 		});
 });

@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import authActions from '../actions/authActions';
+import { NavigationActions } from 'react-navigation';
 import { Container, Header, Left, Button, Icon, Body, Right, Title, Content, Text,  Form, Item, Input, Label } from 'native-base';
 
 class Login extends Component {
@@ -14,64 +15,85 @@ class Login extends Component {
 	}
 
 	componentWillMount() {
-		const { isLoggedIn, authActionsCreator } = this.props;
+		const { isLoggedIn, authActionsCreator, navigation } = this.props;
 
-		console.log('this.props', this.props);
-
-		const { navigate } = this.props.navigation;
+		const resetAction = NavigationActions.reset({
+	        index: 0,
+	        actions: [
+	          NavigationActions.navigate({
+	            routeName: "Tabs"
+	          })
+	        ]
+	      });
 
 		if (isLoggedIn) {
 			authActionsCreator.doInitialLoad();
-			navigate('Tabs');
+			navigation.dispatch(resetAction);
 		}
 	}
 
 	login(){
 		const { email, password } = this.state;
-		const { authActionsCreator } = this.props;
-		const { navigate } = this.props.navigation;
+		const { authActionsCreator, navigation } = this.props;
 
 		const payload = {
 			email,
 			password,
 		}
 
-		authActionsCreator.loginUser({payload, navigate});
+		const resetAction = NavigationActions.reset({
+	        index: 0,
+	        actions: [
+	          NavigationActions.navigate({
+	            routeName: "Tabs"
+	          })
+	        ]
+	      });
+
+		authActionsCreator.loginUser({payload, navigation, resetAction});
 	}
 
 	render() {
 		const { navigate } = this.props.navigation;
+		const { itemStyle, buttonStyle, headerStyle } = styles;
 		return (
 			<Container>
-				<Header>
-		          <Left>
-		            <Button transparent>
-		              <Icon name='menu' />
-		            </Button>
-		          </Left>
+				<Header 
+					style={headerStyle}
+				>
+		          <Left />
 		          <Body>
-		            <Title>Header</Title>
+		            <Title>Sign In</Title>
 		          </Body>
 		          <Right />
 		        </Header>
-		        <Content>
-		          <Form>
-		            <Item floatingLabel>
-		              <Label>Email</Label>
+		        <Content padder>
+		          <Form padder>
+		            <Item 
+		            	rounded
+		            	style={itemStyle}
+		            >
 		              <Input 
 		              	onChangeText={(email) => this.setState({email})}
 		              	value={this.state.email}
+
 		              />
 		            </Item>
-		            <Item floatingLabel last>
-		              <Label>Password</Label>
+		            <Item 
+		            	rounded 
+		            	last
+		            	style={itemStyle}
+		            >
 		              <Input 
 		              	onChangeText={(password) => this.setState({password})}
 		              	value={this.state.password}
+		              	secureTextEntry={true}
+		              	
 		              />
 		            </Item>
-		            <Button full success
+		            <Button full rounded success
 		            	onPress={this.login}
+		            	style={buttonStyle}
 		            >
 			            <Text>Login</Text>
 			        </Button>
@@ -81,6 +103,24 @@ class Login extends Component {
 		);
 	}
 }
+
+styles = {
+	headerStyle:{
+		backgroundColor: '#3389EE',
+	},
+	itemStyle: {
+		marginLeft: 10,
+		margin: 10,
+		paddingHorizontal: 10,
+	},
+	inputStyle: {
+		margin: 10,
+	},
+	buttonStyle: {
+		margin: 20,
+		backgroundColor: '#3389EE',
+	}
+};
 
 const mapStateToProps = ({ AuthReducer }) => ({
 	isLoggedIn: AuthReducer.isLoggedIn,

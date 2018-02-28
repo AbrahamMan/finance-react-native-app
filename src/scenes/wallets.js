@@ -6,9 +6,10 @@ import { Input } from '../components/forms';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { HeaderTop } from '../components/layouts';
 import Single from '../components/wallets/single';
-import tranActions from '../actions/tranActions';
+import transactionsActions from '../actions/transactionsActions';
+import walletActions from '../actions/walletActions';
 import { Container, Spinner, Content, Fab } from 'native-base';
-import { filterTotalByMonth, filterTotalByDate, filterYesterdayTransaction, filterTodayTransaction } from '../selector/walletSelector';
+import { filterTotalByWeek, filterTotalByDate, filterYesterdayTransaction, filterTodayTransaction } from '../selector/walletSelector';
 import Swiper from 'react-native-swiper';
 import moment from 'moment';
 
@@ -56,16 +57,7 @@ class Wallets extends Component {
 
 	componentWillMount() {
 
-		// moment().calendar(null,{
-		//     lastDay : '[Yesterday]',
-		//     sameDay : '[Today]',
-		//     nextDay : '[Tomorrow]',
-		//     lastWeek : '[last] dddd',
-		//     nextWeek : 'dddd',
-		//     sameElse : 'L'
-		// })
-
-		moment.locale('en', {
+		moment.updateLocale('en', {
 		    calendar: {
 		        lastDay: function () {
 		            return '[Yesterday]';
@@ -81,13 +73,17 @@ class Wallets extends Component {
 		        },
 		        nextWeek: function () {
 		            return '[Future], DD MMM YYYY';
+		        },
+		        sameElse: function () {
+		            return 'ddd, DD MMM YYYY';
 		        }
 		    }
 		});
 
-		const { actions, walletsGroupByDates } = this.props;
+		const { transactionsActions, walletActions, walletsGroupByDates } = this.props;
 
-		actions.requestTransList();
+		walletActions.requestWalletList();
+		transactionsActions.requestTransList();
 
 		if(walletsGroupByDates)
 		{
@@ -105,9 +101,7 @@ class Wallets extends Component {
 
 	render() {
 		const { navigate } = this.props.navigation;
-		const { yesterdayWallet, todayWallet, totalByMonth, walletsGroupByDates } = this.props;
-		console.log('walletsGroupByDates', walletsGroupByDates);
-		//const { arrayDates, totalByDates, dates } = walletsGroupByDates;
+		const { yesterdayWallet, todayWallet, totalByWeek, walletsGroupByDates, wallet } = this.props;
 		const { walletContainer, totalMonth, walletBalance, spendingMonth, walletBackground, dateContainer, totalStyle, dateStyle } = styles;
 		return (
 			<View style={walletBackground}>
@@ -116,17 +110,17 @@ class Wallets extends Component {
 					navigate={navigate}
 				/>
 				{
-					walletsGroupByDates ?
+					wallet ?
 				
 					<View style={walletContainer}>
 						<View style={totalMonth}>
 							<View style={walletBalance}>
-								<Text>{ totalByMonth.toFixed(2) }</Text>
+								<Text>{ wallet.balance }</Text>
 								<Text>Wallet balance</Text>
 							</View>	
 							<View style={spendingMonth}>
-								<Text>{ totalByMonth.toFixed(2) } </Text>
-								<Text>Month change </Text>
+								<Text>{ totalByWeek } </Text>
+								<Text>Weekly change </Text>
 							</View>	
 						</View>
 						<View style={dateContainer}>	
@@ -134,7 +128,7 @@ class Wallets extends Component {
 								<Text>{moment(walletsGroupByDates.dates[this.state.activeIndex]).calendar()}</Text>
 							</View>
 							<View style={totalStyle}>
-								<Text>{ walletsGroupByDates.totalByDates[this.state.activeIndex].toFixed(2) }</Text>
+								<Text>{ walletsGroupByDates.totalByDates[this.state.activeIndex] }</Text>
 							</View>	
 						</View>
 						<Swiper 
@@ -222,15 +216,17 @@ styles = {
 
 //export default Wallets;
 
-const mapStateToProps = ({ WalletReducer }) => ({
-	yesterdayWallet: filterYesterdayTransaction(WalletReducer),
-	todayWallet: filterTodayTransaction(WalletReducer),
-	totalByMonth: filterTotalByMonth(WalletReducer),
-	walletsGroupByDates: filterTotalByDate(WalletReducer),
+const mapStateToProps = ({ TransactionsReducer, WalletReducer }) => ({
+	wallet: WalletReducer,
+	yesterdayWallet: filterYesterdayTransaction(TransactionsReducer),
+	todayWallet: filterTodayTransaction(TransactionsReducer),
+	totalByWeek: filterTotalByWeek(TransactionsReducer),
+	walletsGroupByDates: filterTotalByDate(TransactionsReducer),
 });
 
 const mapDispatchToProps = dispatch => ({
-	actions: bindActionCreators(tranActions, dispatch),
+	walletActions: bindActionCreators(walletActions, dispatch),
+	transactionsActions: bindActionCreators(transactionsActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallets);

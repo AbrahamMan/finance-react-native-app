@@ -6,7 +6,8 @@ import authActions from '../actions/authActions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { HeaderTop } from '../components/layouts';
 import request from '../helpers/request';
-import { Container, Header, Left, Button, Body, Right, Title, Content, Text,  Form, Item, Input, Label } from 'native-base';
+import { Container, Header, Left, Button, Body, Right, Title, Content, Text,  Form, Item, Input, Label, Separator, ListItem } from 'native-base';
+import { NavigationActions } from 'react-navigation';
 
 class Profile extends Component {
 
@@ -24,8 +25,17 @@ class Profile extends Component {
 
 	logout(){
 		console.log('logout');
-		const { navigate } = this.props.navigation;
-		this.props.userActionsCreator.logout({navigate});
+		const { navigation } = this.props;
+
+		const resetAction = NavigationActions.reset({
+	        index: 0,
+	        actions: [
+	          NavigationActions.navigate({
+	            routeName: "Login"
+	          })
+	        ]
+	      });
+		this.props.userActionsCreator.logout({navigation, resetAction});
 	}
 
 	render() {
@@ -44,13 +54,31 @@ class Profile extends Component {
 		          <Right />
 		        </Header>
 		        <Content>
-		          <Button 
-		          	onPress={this.logout}
-		          >
-		          	<Text>
-		          		Logout
-		          	</Text>
-		          </Button>		
+					<Separator bordered>
+						<Text>FORWARD</Text>
+					</Separator>
+					<ListItem >
+						<Text>Aaron Bennet</Text>
+					</ListItem>
+					<ListItem>
+						<Text>Claire Barclay</Text>
+					</ListItem>
+					<ListItem last>
+						<Text>Kelso Brittany</Text>
+					</ListItem>
+					<Separator bordered>
+						<Text>MIDFIELD</Text>
+					</Separator>
+					<ListItem>
+						<Text>Caroline Aaron</Text>
+					</ListItem>
+					<Button 
+						onPress={this.logout}
+					>
+						<Text>
+							Logout
+						</Text>
+					</Button>		
 		        </Content>
 			</Container>
 		);
