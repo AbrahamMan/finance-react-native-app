@@ -3629,7 +3629,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0:
+prop-types@15.6.0, prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -3733,6 +3733,12 @@ react-devtools-core@3.0.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
+react-native-animatable@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.2.4.tgz#b5fb7657e8f6edadbc26697057a327fb920b3039"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-app-intro@^1.1.5:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/react-native-app-intro/-/react-native-app-intro-1.1.5.tgz#34a2d2265b2d654d31bae743c404856c37448692"
@@ -3796,6 +3802,13 @@ react-native-keyboard-aware-scroll-view@0.4.2:
 react-native-material-bottom-navigation@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/react-native-material-bottom-navigation/-/react-native-material-bottom-navigation-0.7.0.tgz#bc3e9d5c86ada5a4d5d6a47722b3db233cc6906c"
+
+react-native-modal@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-5.2.0.tgz#96e69c0c56d9eb9e5a3ac0cb85b835e0897c2feb"
+  dependencies:
+    prop-types "15.6.0"
+    react-native-animatable "^1.2.4"
 
 react-native-sentry@^0.32.1:
   version "0.32.1"

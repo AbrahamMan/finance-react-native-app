@@ -103,11 +103,14 @@ class Wallets extends Component {
 		const { navigate } = this.props.navigation;
 		const { yesterdayWallet, todayWallet, totalByWeek, walletsGroupByDates, wallet } = this.props;
 		const { walletContainer, totalMonth, walletBalance, spendingMonth, walletBackground, dateContainer, totalStyle, dateStyle } = styles;
+
+		console.log('wallet', wallet);
 		return (
 			<View style={walletBackground}>
 				<HeaderTop 
-					title="Wallets"
+					walletName={wallet.name}
 					navigate={navigate}
+					wallets={wallet.list}
 				/>
 				{
 					wallet ?
@@ -157,6 +160,7 @@ class Wallets extends Component {
 							active={this.state.active}
 							style={{ backgroundColor: '#3bb84a' }}
 							onPress={() => navigate('Add')}
+							position="bottomLeft"
 						>
 							<Icon name="add" />
 						</Fab>	
@@ -180,7 +184,6 @@ styles = {
 		flex: 1,
 	},
 	walletContainer: {
-		padding: 10,
 		flex: 1,
 	},
 	totalMonth : {

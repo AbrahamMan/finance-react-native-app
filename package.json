@@ -17,6 +17,7 @@
     "react-native-calendars": "^1.16.1",
     "react-native-ios-status-bar-padding": "^1.1.0",
     "react-native-material-bottom-navigation": "^0.7.0",
+    "react-native-modal": "^5.2.0",
     "react-native-sentry": "^0.32.1",
     "react-native-snap-carousel": "^3.5.0",
     "react-native-swiper": "^1.5.13",
@@ -25,9 +26,9 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
+    "redux-persist": "^4.9.1",
     "redux-thunk": "^2.2.0",
-    "reselect": "^3.0.1",
-    "redux-persist": "^4.9.1"
+    "reselect": "^3.0.1"
   },
   "devDependencies": {
     "babel-jest": "22.0.4",
