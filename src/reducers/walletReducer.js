@@ -2,7 +2,8 @@ import {
 	REQUEST_WALLET_LIST_START,
 	REQUEST_WALLET_LIST_SUCCESS,
 	REQUEST_WALLET_LIST_FAILURE,
-	USER_LOGOUT
+	USER_LOGOUT,
+	REQUEST_TRANS_LIST_SUCCESS
 } from '../actions/types';
 
 const INITIAL_STATE = { 
@@ -29,6 +30,13 @@ export default (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 			};
+
+		case REQUEST_TRANS_LIST_SUCCESS:
+			return { 
+				...state,
+				...payload,
+				isLoading: false
+			};	
 		case USER_LOGOUT:
 			return { ...INITIAL_STATE };			
 		default:

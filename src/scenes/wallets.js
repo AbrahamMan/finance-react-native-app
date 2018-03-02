@@ -82,8 +82,9 @@ class Wallets extends Component {
 
 		const { transactionsActions, walletActions, walletsGroupByDates } = this.props;
 
-		walletActions.requestWalletList();
-		transactionsActions.requestTransList();
+		// @ need to store id in redux 
+		walletActions.requestWalletList({ id : 1 });
+		transactionsActions.requestTransList({ id : 1 });
 
 		if(walletsGroupByDates)
 		{
@@ -101,7 +102,7 @@ class Wallets extends Component {
 
 	render() {
 		const { navigate } = this.props.navigation;
-		const { yesterdayWallet, todayWallet, totalByWeek, walletsGroupByDates, wallet } = this.props;
+		const { yesterdayWallet, todayWallet, totalByWeek, walletsGroupByDates, wallet, walletActions } = this.props;
 		const { walletContainer, totalMonth, walletBalance, spendingMonth, walletBackground, dateContainer, totalStyle, dateStyle } = styles;
 
 		console.log('wallet', wallet);
@@ -111,6 +112,7 @@ class Wallets extends Component {
 					walletName={wallet.name}
 					navigate={navigate}
 					wallets={wallet.list}
+					walletActions={walletActions}
 				/>
 				{
 					wallet ?

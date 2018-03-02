@@ -9,10 +9,10 @@ import {
 const requestTransListStart = () => ({ type: REQUEST_TRANS_LIST_START });
 const requestTransListSuccess = payload => ({ type: REQUEST_TRANS_LIST_SUCCESS, payload });
 
-const requestTransList = callback => ((dispatch) => {
+const requestTransList = ({id}, callback) => ((dispatch) => {
 	dispatch(requestTransListStart());
 	request
-		.get('/transactions')
+		.get(`/transactions/${id}`)
 		.then(async ({ data }) => {
 			await dispatch(requestTransListSuccess(data));
 			callback && callback();
