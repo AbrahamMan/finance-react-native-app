@@ -9,6 +9,7 @@ import {
 const INITIAL_STATE = { 
 	balance: null,
 	isLoading: false,
+	selectedWalletId: '',
 };
 
 export default (state = INITIAL_STATE, action) => {

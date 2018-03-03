@@ -10,7 +10,7 @@ class Login extends Component {
 
 	constructor(props){
 		super(props);
-    	this.state = {email: 'm.ridhwan.daud@gmail.com', password: 'password'};
+    	this.state = {email: '', password: ''};
     	this.login = this.login.bind(this);
 	}
 
@@ -75,19 +75,31 @@ class Login extends Component {
 		          <Form padder>
 		            <Item 
 		            	rounded
+		            	style={{ 
+		            		marginLeft: 10,
+							margin: 10,
+							paddingHorizontal: 10,
+						}}
 		            >
 		              <Input 
 		              	onChangeText={(email) => this.setState({email})}
+		              	placeholder="email"
 		              	value={this.state.email}
 
 		              />
 		            </Item>
 		            <Item 
+		            	style={{ 
+		            		marginLeft: 10,
+							margin: 10,
+							paddingHorizontal: 10,
+						}}
 		            	rounded 
 		            	last
 		            >
 		              <Input 
 		              	onChangeText={(password) => this.setState({password})}
+		              	placeholder="password"
 		              	value={this.state.password}
 		              	secureTextEntry={true}
 		              	
@@ -95,7 +107,10 @@ class Login extends Component {
 		            </Item>
 		            <Button full rounded success
 		            	onPress={this.login}
-		            	style={buttonStyle}
+		            	style={{
+		            		margin: 20,
+							backgroundColor: '#3389EE',
+						}}
 		            >
 			            <Text>Login</Text>
 			        </Button>

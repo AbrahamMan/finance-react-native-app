@@ -80,11 +80,11 @@ class Wallets extends Component {
 		    }
 		});
 
-		const { transactionsActions, walletActions, walletsGroupByDates } = this.props;
+		const { transactionsActions, walletActions, walletsGroupByDates, wallet } = this.props;
 
 		// @ need to store id in redux 
-		walletActions.requestWalletList({ id : 1 });
-		transactionsActions.requestTransList({ id : 1 });
+		walletActions.requestWalletList({ id : wallet.selectedWalletId });
+		transactionsActions.requestTransList({ id : wallet.selectedWalletId });
 
 		if(walletsGroupByDates)
 		{
@@ -104,6 +104,8 @@ class Wallets extends Component {
 		const { navigate } = this.props.navigation;
 		const { yesterdayWallet, todayWallet, totalByWeek, walletsGroupByDates, wallet, walletActions, navigation } = this.props;
 		const { walletContainer, totalMonth, walletBalance, spendingMonth, walletBackground, dateContainer, totalStyle, dateStyle } = styles;
+
+		console.log('wallet', wallet);
 		return (
 			<View style={walletBackground}>
 				<HeaderTop 

@@ -10,6 +10,7 @@ const requestTransListStart = () => ({ type: REQUEST_TRANS_LIST_START });
 const requestTransListSuccess = payload => ({ type: REQUEST_TRANS_LIST_SUCCESS, payload });
 
 const requestTransList = ({id}, callback) => ((dispatch) => {
+	console.log('requestTransList id', id);
 	dispatch(requestTransListStart());
 	request
 		.get(`/transactions/${id}`)
@@ -37,11 +38,13 @@ const storeTransaction = ({state, navigation, resetAction} ,callback) => ((dispa
 	request
 		.post('/transaction', payload)
 		.then(async ({ data }) => {
+			console.log('success', data);
 			await dispatch(storeTransactionSuccess(data));
 			callback && callback();
 			navigation.dispatch(resetAction)
 		})
 		.catch(({ message, ...others }) => {
+			console.log('errors', others);
 			callback && callbackError();
 		});
 });
