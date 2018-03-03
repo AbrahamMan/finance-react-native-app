@@ -3,8 +3,8 @@ import { View, TouchableOpacity, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Header, Card, CardSection, HeaderTop } from '../components/layouts';
-import transactionsActions from '../actions/transactionsActions';
+import { Header, Card, CardSection, HeaderTop } from '../../components/layouts';
+import transactionsActions from '../../actions/transactionsActions';
 import { NavigationActions } from 'react-navigation';
 import moment from 'moment';
 import { Button, Text, Item, Input, Label } from 'native-base';
@@ -12,7 +12,7 @@ import { Button, Text, Item, Input, Label } from 'native-base';
 class Add extends Component {
 	constructor(props) {
 	    super(props);
-	    this.state = { amount: '', description: '', date: moment().format('YYYY-MM-DD'), type: 'debit', wallet_id: 1 };
+	    this.state = { amount: '', description: '', date: moment().format('YYYY-MM-DD'), type: 'debit', wallet_id: '1' };
 	}
 
 	save = () =>{

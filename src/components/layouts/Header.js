@@ -10,8 +10,16 @@ class HeaderTop extends Component {
     	isModalVisible: false
   	};
 
-  	_toggleModal = () =>{
-    	this.setState({ isModalVisible: !this.state.isModalVisible });
+  	_toggleModal = (wallets) =>{
+    	//this.setState({ isModalVisible: !this.state.isModalVisible });
+    	
+    	console.log('header', this.props.navigation );
+
+    	console.log('wallets', wallets);
+
+    	const { navigate } = this.props.navigation;
+
+    	navigate('Selection', { wallets });
     }
 
     editWallet = (id) => {
@@ -31,18 +39,40 @@ class HeaderTop extends Component {
 		console.log('walletActions', walletActions);
 		return (
 			<Header style={{ backgroundColor: '#3bb84a' }}>
-	          <Left>
-	          </Left>
-	          <Body>
-	          	<TouchableOpacity onPress={this._toggleModal} style={{ flexDirection: 'row'}}>
-	          		<Icon name='arrow-down' style={{ paddingRight: 10, paddingTop: 5, color: 'white' }}/>
-	            	<Title style={{ alignSelf: 'center', color: 'white' }}>{walletName}</Title>
+	          	<Left>
+	          	</Left>
+	          	<Body 
+	          		style={{ 
+	          			flex: 1,
+	          			justifyContent: 'center',
+	          			alignItems: 'center',
+	          		}}
+	          	>
+	          	<TouchableOpacity 
+	          		onPress={()=>{this._toggleModal({wallets})}}
+	          		style={{ flexDirection: 'row'}}
+	          	>
+	          		<Icon 
+	          			name='arrow-down' 
+	          			style={{ paddingRight: 10,
+	          				paddingTop: 5,
+	          				color: 'white' 
+	          			}}
+	          		/>
+	            	<Title 
+	            		style={{ 
+	            			alignSelf: 'center',
+	            			color: 'white' 
+	            		}}
+	            	>
+	            			{walletName}
+	            	</Title>
 	            </TouchableOpacity>	
-	          </Body>
-	          <Right />
-	          <Modal isVisible={this.state.isModalVisible}>
-		          	<View style={{ flex: 1, backgroundColor: 'white' }}>
-		            	<Header>
+	          	</Body>
+	          	<Right />
+	          	<Modal isVisible={this.state.isModalVisible}>
+		          	<View style={{ height: 300, backgroundColor: 'white' }}>
+		            	<Header style={{ paddingTop: 0 }}>
 		            		<Left>
 		            			<TouchableOpacity onPress={this._toggleModal}>
 				              		<Icon name='close' style={{ color: 'black' }}/>
@@ -53,7 +83,7 @@ class HeaderTop extends Component {
 		            		</Body>
 		            		<Right />
 		            	</Header>
-		            	<Content>
+		            	<Content style={{ flex: 1 }}>
 						{
 							wallets &&
 							wallets.map(wallet=>{

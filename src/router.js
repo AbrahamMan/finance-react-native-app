@@ -3,9 +3,10 @@ import Login from './scenes/login';
 import Dashboard from './scenes/dashboard';
 import Profile from './scenes/profile';
 import Wallets from './scenes/wallets';
-import Edits from './scenes/edit';
-import Add from './scenes/add';
+import Edits from './scenes/wallets/edit';
+import Add from './scenes/wallets/add';
 import Date from './scenes/wallets/date';
+import Selection from './scenes/wallets/selection';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { NavigationComponent } from 'react-native-material-bottom-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -53,8 +54,8 @@ const Router = StackNavigator({
   Tabs: {
     screen: Tabs,
     navigationOptions:()=>({
-            header:null,
-        }),
+        header:null,
+    }),
   },
   Edits: {
     screen: Edits,
@@ -64,8 +65,21 @@ const Router = StackNavigator({
   },
   Add: {
     screen: Add,
+    navigationOptions:()=>({
+        header:null,
+    }),
   },
-});
+  Selection: {
+    screen: Selection,
+    navigationOptions:()=>({
+        header:null,
+    }),
+  },
+},{
+  mode: 'modal',
+}
+
+);
 
 
 

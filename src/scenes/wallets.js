@@ -102,7 +102,7 @@ class Wallets extends Component {
 
 	render() {
 		const { navigate } = this.props.navigation;
-		const { yesterdayWallet, todayWallet, totalByWeek, walletsGroupByDates, wallet, walletActions } = this.props;
+		const { yesterdayWallet, todayWallet, totalByWeek, walletsGroupByDates, wallet, walletActions, navigation } = this.props;
 		const { walletContainer, totalMonth, walletBalance, spendingMonth, walletBackground, dateContainer, totalStyle, dateStyle } = styles;
 
 		console.log('wallet', wallet);
@@ -113,6 +113,7 @@ class Wallets extends Component {
 					navigate={navigate}
 					wallets={wallet.list}
 					walletActions={walletActions}
+					navigation={navigation}
 				/>
 				{
 					wallet ?
@@ -159,8 +160,9 @@ class Wallets extends Component {
 
 						</Swiper>
 						<Fab
+							containerStyle={{ left: '44%' }}
 							active={this.state.active}
-							style={{ backgroundColor: '#3bb84a' }}
+							style={{ backgroundColor: '#3bb84a',  }}
 							onPress={() => navigate('Add')}
 							position="bottomLeft"
 						>
@@ -187,6 +189,7 @@ styles = {
 	},
 	walletContainer: {
 		flex: 1,
+		padding: 7,
 	},
 	totalMonth : {
 		padding: 10,

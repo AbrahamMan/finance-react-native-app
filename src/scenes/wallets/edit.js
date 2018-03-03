@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Header, Card, CardSection } from '../components/layouts';
+import { Header, Card, CardSection } from '../../components/layouts';
 import { Calendar } from 'react-native-calendars';
-import Date from './wallets/date';
+import Date from './date';
 
 class Edit extends Component {
     openDate = (Item) => {
