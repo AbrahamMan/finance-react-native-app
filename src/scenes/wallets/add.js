@@ -13,9 +13,25 @@ class Add extends Component {
 	    this.state = { amount: '', description: '', date: moment().format('YYYY-MM-DD'), type: 'debit', wallet_id: '1' };
 	}
 
+	componentWillMount(){
+		const { selectedWalletId } = this.props.WalletReducer;
+
+		this.setState({ wallet_id: selectedWalletId.toString() });
+	}
+
+	_toggleModal = (wallets) =>{  
+
+    	const { navigate } = this.props.navigation;
+
+    	navigate('Selection', { wallets });
+    }
+
 	save = () =>{
-	 	console.log('save');
 	 	const { transactionsActions, navigation } = this.props;
+
+	 	const { selectedWalletId } = this.props.WalletReducer;
+
+		this.setState({ wallet_id: selectedWalletId.toString() });
 
 	 	const resetAction = NavigationActions.reset({
 	        index: 0,
@@ -32,6 +48,7 @@ class Add extends Component {
 
 	render() {
 		const { container, button } = styles;
+		const { WalletReducer: wallets } = this.props;
 		return (
 			<Container>
 
@@ -96,10 +113,14 @@ class Add extends Component {
 			            <Icon active name='ios-calendar-outline' style={{fontSize: 30}} />
 			            <Input placeholder='Today' onChangeText={(date) => this.setState({date})} value={this.state.date}/>
 			        </Item>
-			        <Item>
-			            <Icon active name='ios-briefcase-outline' style={{fontSize: 30}} />
-			            <Input placeholder='Wallet Id' onChangeText={(wallet_id) => this.setState({wallet_id})} value={this.state.wallet_id}/>
-			        </Item>
+			         <TouchableOpacity
+		            	onPress={()=>{this._toggleModal({wallets: wallets.list})}}
+		            >
+				        <View style={{ flexDirection: 'row', paddingVertical: 10, }}>
+				            <Icon active name='ios-briefcase-outline' style={{fontSize: 30, flex: 1, alignSelf: 'center' }} />
+				            <Text style={{ flex: 9, alignSelf: 'center' }}>{wallets.name}</Text>
+				        </View>
+			        </TouchableOpacity>
 			    </Content>
 		    </Container>
 		);
@@ -117,10 +138,9 @@ const styles = {
 	}
 }
 
-const mapStateToProps = (state) => {
-	console.log(state);
-	return { state };
-};
+const mapStateToProps = ({ WalletReducer }) => ({
+	WalletReducer,
+});
 
 const mapDispatchToProps = dispatch => ({
 	transactionsActions: bindActionCreators(transactionsActions, dispatch),

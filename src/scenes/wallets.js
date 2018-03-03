@@ -105,7 +105,6 @@ class Wallets extends Component {
 		const { yesterdayWallet, todayWallet, totalByWeek, walletsGroupByDates, wallet, walletActions, navigation } = this.props;
 		const { walletContainer, totalMonth, walletBalance, spendingMonth, walletBackground, dateContainer, totalStyle, dateStyle } = styles;
 
-		console.log('wallet', wallet);
 		return (
 			<View style={walletBackground}>
 				<HeaderTop 
