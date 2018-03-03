@@ -7,7 +7,7 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = { 
-	balance: '',
+	balance: null,
 	isLoading: false,
 };
 

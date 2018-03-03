@@ -59,11 +59,15 @@ class Login extends Component {
 		return (
 			<Container>
 				<Header 
-					style={headerStyle}
+					style={{ backgroundColor: '#3bb84a' }}
 				>
 		          <Left />
 		          <Body>
-		            <Title>Sign In</Title>
+		            <Title
+		            	style={{ color: 'white' }}
+		            >
+		            	Sign In
+		            </Title>
 		          </Body>
 		          <Right />
 		        </Header>
@@ -71,7 +75,6 @@ class Login extends Component {
 		          <Form padder>
 		            <Item 
 		            	rounded
-		            	style={itemStyle}
 		            >
 		              <Input 
 		              	onChangeText={(email) => this.setState({email})}
@@ -82,7 +85,6 @@ class Login extends Component {
 		            <Item 
 		            	rounded 
 		            	last
-		            	style={itemStyle}
 		            >
 		              <Input 
 		              	onChangeText={(password) => this.setState({password})}

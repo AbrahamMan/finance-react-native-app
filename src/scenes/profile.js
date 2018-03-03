@@ -42,14 +42,14 @@ class Profile extends Component {
 		const { navigate } = this.props.navigation;
 		return (
 			<Container>
-				<Header>
-		          <Left>
-		            <Button transparent>
-		              <Icon name='menu' />
-		            </Button>
-		          </Left>
+				<Header style={{ backgroundColor: '#3bb84a' }}>
+		          <Left />
 		          <Body>
-		            <Title>Profile</Title>
+		            <Title
+		            	style={{ color: 'white' }}
+		            >
+		            	Profile
+		            </Title>
 		          </Body>
 		          <Right />
 		        </Header>
@@ -72,7 +72,7 @@ class Profile extends Component {
 					<ListItem>
 						<Text>Caroline Aaron</Text>
 					</ListItem>
-					<Button 
+					<Button danger
 						onPress={this.logout}
 					>
 						<Text>
