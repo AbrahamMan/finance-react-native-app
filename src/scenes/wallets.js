@@ -104,7 +104,7 @@ class Wallets extends Component {
 		const { navigate } = this.props.navigation;
 		const { yesterdayWallet, todayWallet, totalByWeek, walletsGroupByDates, wallet, walletActions, navigation } = this.props;
 		const { walletContainer, totalMonth, walletBalance, spendingMonth, walletBackground, dateContainer, totalStyle, dateStyle } = styles;
-
+		console.log('walletsGroupByDates', walletsGroupByDates);
 		return (
 			<View style={walletBackground}>
 				<HeaderTop 
@@ -128,36 +128,53 @@ class Wallets extends Component {
 								<Text>Weekly change </Text>
 							</View>	
 						</View>
-						<View style={dateContainer}>	
-							<View style={dateStyle}>
-								<Text>{moment(walletsGroupByDates.dates[this.state.activeIndex]).calendar()}</Text>
-							</View>
-							<View style={totalStyle}>
-								<Text>{ walletsGroupByDates.totalByDates[this.state.activeIndex] }</Text>
-							</View>	
-						</View>
-						<Swiper 
-							style={styles.wrapper} 
-							showsButtons={false}
-							loop={false}
-							onIndexChanged={this.changeDateSelection}
-							index={walletsGroupByDates.arrayDates.length-1}
-						>
-							{
-								walletsGroupByDates.arrayDates.map(wallet =>{
-									return (
-										<FlatList
-											// ListHeaderComponent={this.renderHeader}
-											style={{ flex: 6 }}
-										  	data={wallet}
-										  	renderItem={this._renderItem}
-										  	keyExtractor={item => item.id}
-										/>
-									)
-								})
-							}
 
-						</Swiper>
+						{
+
+							walletsGroupByDates.arrayDates.length != 0 ?
+
+							<View>
+								<View style={dateContainer}>	
+									<View style={dateStyle}>
+										<Text>{moment(walletsGroupByDates.dates[this.state.activeIndex]).calendar()}</Text>
+									</View>
+									<View style={totalStyle}>
+										<Text>{ walletsGroupByDates.totalByDates[this.state.activeIndex] }</Text>
+									</View>	
+								</View>
+								
+								
+							
+								<Swiper 
+									style={styles.wrapper} 
+									showsButtons={false}
+									loop={false}
+									onIndexChanged={this.changeDateSelection}
+									index={walletsGroupByDates.arrayDates.length-1}
+								>
+									{
+										walletsGroupByDates.arrayDates.map(wallet =>{
+											return (
+												<FlatList
+													// ListHeaderComponent={this.renderHeader}
+													style={{ flex: 6 }}
+												  	data={wallet}
+												  	renderItem={this._renderItem}
+												  	keyExtractor={item => item.id}
+												/>
+											)
+										})
+									}
+
+								</Swiper>
+							</View>
+
+							:
+
+							<Text>
+								Start tracking your transactions for this week
+							</Text>
+						}
 						<Fab
 							containerStyle={{ left: '44%' }}
 							active={this.state.active}
