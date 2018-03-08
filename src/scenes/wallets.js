@@ -133,7 +133,7 @@ class Wallets extends Component {
 
 							walletsGroupByDates.arrayDates.length != 0 ?
 
-							<View>
+							<View style={{ flex: 1 }}>
 								<View style={dateContainer}>	
 									<View style={dateStyle}>
 										<Text>{moment(walletsGroupByDates.dates[this.state.activeIndex]).calendar()}</Text>
