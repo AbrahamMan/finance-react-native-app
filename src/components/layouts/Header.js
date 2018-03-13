@@ -19,7 +19,7 @@ class HeaderTop extends Component {
 
     	const { navigate } = this.props.navigation;
 
-    	navigate('Selection', { wallets });
+    	navigate('WalletList', { wallets });
     }
 
     editWallet = (id) => {
