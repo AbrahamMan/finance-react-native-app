@@ -121,8 +121,8 @@ class Login extends Component {
 	}
 }
 
-styles = {
-	headerStyle:{
+const styles = {
+	headerStyle: {
 		backgroundColor: '#3389EE',
 	},
 	itemStyle: {

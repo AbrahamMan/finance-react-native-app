@@ -6,7 +6,8 @@ import Wallets from './scenes/wallets';
 import Edits from './scenes/wallets/edit';
 import Add from './scenes/wallets/add';
 import Date from './scenes/wallets/date';
-import Selection from './scenes/wallets/selection';
+import WalletList from './scenes/wallets/list';
+import CategoryList from './scenes/categories/list';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { NavigationComponent } from 'react-native-material-bottom-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -69,8 +70,14 @@ const Router = StackNavigator({
         header:null,
     }),
   },
-  Selection: {
-    screen: Selection,
+  WalletList: {
+    screen: WalletList,
+    navigationOptions:()=>({
+        header:null,
+    }),
+  },
+  CategoryList: {
+    screen: CategoryList,
     navigationOptions:()=>({
         header:null,
     }),

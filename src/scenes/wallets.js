@@ -103,7 +103,7 @@ class Wallets extends Component {
 	render() {
 		const { navigate } = this.props.navigation;
 		const { yesterdayWallet, todayWallet, totalByWeek, walletsGroupByDates, wallet, walletActions, navigation } = this.props;
-		const { walletContainer, totalMonth, walletBalance, spendingMonth, walletBackground, dateContainer, totalStyle, dateStyle } = styles;
+		const { walletContainer, totalMonth, walletBalance, spendingMonth, walletBackground, dateContainer, totalStyle, dateStyle, noWeekTransactions } = styles;
 		console.log('walletsGroupByDates', walletsGroupByDates);
 		return (
 			<View style={walletBackground}>
@@ -142,9 +142,6 @@ class Wallets extends Component {
 										<Text>{ walletsGroupByDates.totalByDates[this.state.activeIndex] }</Text>
 									</View>	
 								</View>
-								
-								
-							
 								<Swiper 
 									style={styles.wrapper} 
 									showsButtons={false}
@@ -171,9 +168,14 @@ class Wallets extends Component {
 
 							:
 
-							<Text>
-								Start tracking your transactions for this week
-							</Text>
+							<View style={noWeekTransactions}>
+								<Text>
+									Start tracking your transactions for this week
+								</Text>
+								<Text style={{ marginTop: 10 }}>
+									Tap + to add one
+								</Text>
+							</View>
 						}
 						<Fab
 							containerStyle={{ left: '44%' }}
@@ -243,8 +245,14 @@ styles = {
 		paddingHorizontal: 20,
 		backgroundColor: 'white',
 		flexDirection: 'row',
-	}
-
+	},
+	noWeekTransactions: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		paddingVertical: 20,
+		marginTop: 10,
+		flex: 1,
+	},
 }
 
 //export default Wallets;

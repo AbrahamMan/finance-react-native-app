@@ -26,7 +26,7 @@ const requestTransList = ({id}, callback) => ((dispatch) => {
 const storeTransactionSuccess = payload => ({ type: STORE_TRANSACTION_SUCCESS, payload });
 
 const storeTransaction = ({state, navigation, resetAction} ,callback) => ((dispatch, getState) => {
-
+	console.log('state', state);
 	const payload = {
 		description: state.description,
 		amount: state.amount,
