@@ -1,0 +1,35 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "indent": ["warn", "tab"],
+    "no-tabs": 0,
+    "react/prop-types": 0,
+    "react/jsx-indent": ["error", "tab"],
+    "react/jsx-indent-props": ["error", "tab"],
+    "quote-props": ["off"],
+    "strict": ["off"],
+    "no-underscore-dangle": ["off"],
+    "comma-dangle": ["warn", "always-multiline"],
+    "arrow-body-style": ["error", "as-needed"],
+    "max-len": ["off"],
+    "no-console": ["off"],
+    "no-useless-constructor": ["off"],
+    "no-debugger": ["warn"],
+    "quotes": ["warn"],
+    "no-restricted-syntax": ["off"],
+    "new-cap": ["off"],
+    "consistent-return": ["off"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "no-unused-expressions": ["error", { "allowShortCircuit": true }],
+    "no-unused-vars": ["warn"],
+    "import/no-extraneous-dependencies": ["off"],
+    "import/no-unresolved": ["off"],
+    "import/extensions": ["off"],
+    "react/no-array-index-key": ["off"]
+  },
+  "globals": {
+    "React": true,
+    "ReactDOM": true
+  },
+  "parser": "babel-eslint"
+}
