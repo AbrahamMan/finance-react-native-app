@@ -10,11 +10,11 @@ import { Container, Header, Left, Body, Right, Button, Icon, Title, Content, Lis
 
 class Add extends Component {
 	constructor(props) {
-	    super(props);
-	    this.state = { amount: '', description: '', date: moment().format('YYYY-MM-DD'), type: 'debit', wallet_id: '1' };
+		super(props);
+		this.state = { amount: '', description: '', date: moment().format('YYYY-MM-DD'), type: 'debit', wallet_id: '1' };
 	}
 
-	componentWillMount(){
+	componentWillMount() {
 		const { selectedWalletId } = this.props.WalletReducer;
 		const { categoryActions } = this.props;
 
@@ -23,46 +23,44 @@ class Add extends Component {
 		this.setState({ wallet_id: selectedWalletId.toString() });
 	}
 
-	chooseWallet = (wallets) => {  
+	chooseWallet = (wallets) => {
+		const { navigate } = this.props.navigation;
 
-    	const { navigate } = this.props.navigation;
+		navigate('WalletList', { wallets });
+	}
 
-    	navigate('WalletList', { wallets });
-    }
+	chooseCategory = (categories) => {
+		const { navigate } = this.props.navigation;
 
-    chooseCategory = (categories) => {  
+		console.log('navigate', navigate);
 
-    	const { navigate } = this.props.navigation;
+		navigate('CategoryList', { categories });
+	}
 
-    	console.log('navigate', navigate);
+	save = () => {
+		const { transactionsActions, navigation } = this.props;
 
-    	navigate('CategoryList', { categories });
-    }
-
-	save = () =>{
-	 	const { transactionsActions, navigation } = this.props;
-
-	 	const { selectedWalletId } = this.props.WalletReducer;
+		const { selectedWalletId } = this.props.WalletReducer;
 
 		this.setState({ wallet_id: selectedWalletId.toString() });
 
-	 	const resetAction = NavigationActions.reset({
-	        index: 0,
-	        actions: [
-	          NavigationActions.navigate({
-	            routeName: "Tabs"
-	          })
-	        ]
-	      });
+		const resetAction = NavigationActions.reset({
+			index: 0,
+			actions: [
+				NavigationActions.navigate({
+					routeName: 'Tabs',
+				}),
+			],
+		});
 
-	 	transactionsActions.storeTransaction({ state: this.state , navigation, resetAction});
-	 	
+		transactionsActions.storeTransaction({ state: this.state, navigation, resetAction });
 	}
 
 	render() {
 		const { container, button } = styles;
 		const { WalletReducer: wallets } = this.props;
-		const { categories } = this.props.CategoryReducer;
+		const { categories, selectedCategory } = this.props.CategoryReducer;
+		console.log('CategoryReducer', this.props.CategoryReducer);
 		return (
 			<Container>
 

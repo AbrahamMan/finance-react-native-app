@@ -3,20 +3,20 @@ import { View, Text, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Container, Header, Left, Body, Right, Button, Icon, Title, Content, List, ListItem, Card, CardItem  } from 'native-base';
-import walletActions from '../../actions/walletActions';
+import categoryActions from '../../actions/categoryActions';
 
 class CategoryList extends Component {
 
-	selectCategory = (id) => {
-  		const { walletActions } = this.props;
+	selectCategory = ({ category }) => {
 
-  		walletActions.selectWallet(id, () => {
-  			this.props.navigation.goBack(null);
-  		});
-  	}
+		const { categoryActionsCreator } = this.props;
+
+		categoryActionsCreator.selectCategory(category);
+
+		this.props.navigation.goBack(null);
+	}
 
 	render() {
-
 		const { categories } = this.props.navigation.state.params.categories;
 
 		console.log('categories in list', categories);
@@ -28,23 +28,23 @@ class CategoryList extends Component {
 					<Left />
 					<Body>
 						<Title
-							style={{ 
-		            			alignSelf: 'center',
-		            			color: 'white' 
-		            		}}
+							style={{
+								alignSelf: 'center',
+								color: 'white',
+							}}
 						>
 							Select Category
 						</Title>
 					</Body>
 					<Right>
 						<TouchableOpacity
-							onPress={()=>this.props.navigation.goBack(null)}
+							onPress={() => this.props.navigation.goBack(null)}
 						>
-							<Icon 
-								name='md-close'
+							<Icon
+								name="md-close"
 								style={{
-			          				color: 'white' 
-			          			}}
+									color: 'white',
+								}}
 							/>
 						</TouchableOpacity>
 					</Right>
@@ -52,20 +52,20 @@ class CategoryList extends Component {
 
 				<Content>
 					<Card>
-					{
-						categories.map(category => {
-							return(
-								<TouchableHighlight
-									onPress={() => { this.selectCategory({ id: category.id}) }}
-								>
-									<CardItem>
-										<Icon active name="logo-googleplus" />
-										<Text>{category.name}</Text>
-									</CardItem>
-								</TouchableHighlight>
-							)
-						})
-					}
+						{
+							categories.map(category => {
+								return (
+									<TouchableHighlight
+										onPress={() => { this.selectCategory({ category }); }}
+									>
+										<CardItem>
+											<Icon active name="logo-googleplus" />
+											<Text>{category.name}</Text>
+										</CardItem>
+									</TouchableHighlight>
+								);
+							})
+						}
 					</Card>
 				</Content>
 			</Container>
@@ -74,7 +74,7 @@ class CategoryList extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-	walletActions: bindActionCreators(walletActions, dispatch),
+	categoryActionsCreator: bindActionCreators(categoryActions, dispatch),
 });
 
 export default connect(null, mapDispatchToProps)(CategoryList);

@@ -1,5 +1,6 @@
 import { 
   REQUEST_CATEGORIES_LIST_SUCCESS,
+  SELECT_CATEGORY
 } from './types';
 import request from '../helpers/request';
 
@@ -16,6 +17,9 @@ const requestCategoriesList = () => (dispatch) =>{
   });
 };
 
+const selectCategory = payload => ({ type: SELECT_CATEGORY, payload });
+
 export default {
-  requestCategoriesList,
+	requestCategoriesList,
+	selectCategory,
 };
