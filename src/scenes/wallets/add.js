@@ -11,7 +11,7 @@ import { Container, Header, Left, Body, Right, Button, Icon, Title, Content, Lis
 class Add extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { amount: '', description: '', date: moment().format('YYYY-MM-DD'), type: 'debit', wallet_id: '1' };
+		this.state = { amount: '', description: '', date: moment().format('YYYY-MM-DD'), type: '', wallet_id: '1', selectedCategory: '' };
 	}
 
 	componentWillMount() {
@@ -42,7 +42,11 @@ class Add extends Component {
 
 		const { selectedWalletId } = this.props.WalletReducer;
 
-		this.setState({ wallet_id: selectedWalletId.toString() });
+		const { selectedCategory } = this.props.CategoryReducer;
+		console.log('selectedCategory', selectedCategory);
+		this.setState({ 
+			wallet_id: selectedWalletId.toString(), 
+			type: selectedCategory.type.toString() });
 
 		const resetAction = NavigationActions.reset({
 			index: 0,
@@ -114,16 +118,12 @@ class Add extends Component {
 		            >
 				        <View style={{ flexDirection: 'row', paddingVertical: 10, }}>
 				            <Icon active name='ios-briefcase-outline' style={{fontSize: 30, flex: 1, alignSelf: 'center' }} />
-				            <Text style={{ flex: 9, alignSelf: 'center' }}>{wallets.name}</Text>
+				            <Text style={{ flex: 9, alignSelf: 'center' }}>{selectedCategory.name}</Text>
 				        </View>
 			        </TouchableOpacity>
 				    <Item>
 			            <Icon active name='ios-help-circle-outline' style={{fontSize: 30}} />
 			            <Input placeholder='Category' onChangeText={(category) => this.setState({category})}/>
-			        </Item>
-			        <Item>
-			            <Icon active name='ios-help-circle-outline' style={{fontSize: 30}} />
-			            <Input placeholder='Type' onChangeText={(type) => this.setState({type})} value={this.state.type}/>
 			        </Item>
 				    <Item>
 			            <Icon active name='ios-document-outline' style={{fontSize: 35}} />
