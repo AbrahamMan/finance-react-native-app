@@ -31,7 +31,7 @@ class Login extends Component {
 			index: 0,
 			actions: [
 				NavigationActions.navigate({
-					routeName: 'Vertical',
+					routeName: 'AddCategory',
 				}),
 			],
 		});
@@ -63,8 +63,8 @@ class Login extends Component {
 		authActionsCreator.loginUser({ payload }, () => {
 			navigation.dispatch(resetAction);
 		}, () => {
-			if (Platform.OS === 'Android') {
-				ToastAndroid.show('Wrong email or password!', ToastAndroid.SHORT);
+			if (Platform.OS === 'android') {
+				ToastAndroid.show('Wrong email or password', ToastAndroid.SHORT);
 			} else {
 				this.refs.toast.show('Wrong email or password!');
 			}

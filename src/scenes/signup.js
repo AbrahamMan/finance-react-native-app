@@ -37,7 +37,7 @@ class Signup extends Component {
 			index: 0,
 			actions: [
 				NavigationActions.navigate({
-					routeName: 'Vertical',
+					routeName: 'AddCategory',
 				}),
 			],
 		});

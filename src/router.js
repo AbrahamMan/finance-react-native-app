@@ -12,7 +12,7 @@ import Add from './scenes/wallets/add';
 import Date from './scenes/wallets/date';
 import WalletList from './scenes/wallets/list';
 import CategoryList from './scenes/categories/list';
-
+import AddCategory from './scenes/categories/add';
 
 const Tabs = TabNavigator({
 	Wallets: { screen: Wallets },
@@ -91,6 +91,9 @@ const Router = StackNavigator({
 	},
 	Vertical: {
 		screen: Vertical,
+	},
+	AddCategory: {
+		screen: AddCategory,
 	},
 });
 
