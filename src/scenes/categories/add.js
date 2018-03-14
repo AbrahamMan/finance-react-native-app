@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, ToastAndroid, Platform } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Toast from 'react-native-easy-toast';
+import { NavigationActions } from 'react-navigation';
 import { Container, Header, Left, Button, Body, Right, Title, Content, Text, Form, Item, Input, Label } from 'native-base';
+import walletActions from '../../actions/walletActions';
 
 class AddCategory extends Component{
 
@@ -19,7 +24,7 @@ class AddCategory extends Component{
 
 	createWallet() {
 		const { balance, name } = this.state;
-		//const { authActionsCreator, navigation } = this.props;
+		const { walletActionsCreator, navigation } = this.props;
 
 		const payload = {
 			balance,
@@ -28,24 +33,24 @@ class AddCategory extends Component{
 
 		console.log('payload', payload);
 
-	// 	const resetAction = NavigationActions.reset({
-	// 		index: 0,
-	// 		actions: [
-	// 			NavigationActions.navigate({
-	// 				routeName: 'AddCategory',
-	// 			}),
-	// 		],
-	// 	});
+		const resetAction = NavigationActions.reset({
+			index: 0,
+			actions: [
+				NavigationActions.navigate({
+					routeName: 'Vertical',
+				}),
+			],
+		});
 
-	// 	authActionsCreator.createNewUser({ payload }, () => {
-	// 		navigation.dispatch(resetAction);
-	// 	}, () => {
-	// 		if (Platform.OS === 'Android') {
-	// 			ToastAndroid.show('Email already exist!', ToastAndroid.SHORT);
-	// 		} else {
-	// 			this.refs.toast.show('Email already exist!');
-	// 		}
-	// 	});
+		walletActionsCreator.createWallet({ payload }, () => {
+			navigation.dispatch(resetAction);
+		}, () => {
+			if (Platform.OS === 'Android') {
+				ToastAndroid.show('Failed to create wallet', ToastAndroid.SHORT);
+			} else {
+				this.refs.toast.show('Failed to create wallet');
+			}
+		});
 	}
 
 	render(){
@@ -94,9 +99,14 @@ class AddCategory extends Component{
 						<Text>Done</Text>
 					</Button>
 				</Content>
+				<Toast ref="toast"/>
 			</Container>
 		)
 	}
 }
 
-export default AddCategory;
+const mapDispatchToProps = dispatch => ({
+	walletActionsCreator: bindActionCreators(walletActions, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(AddCategory);

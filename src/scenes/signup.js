@@ -33,6 +33,7 @@ class Signup extends Component {
 			name,
 		};
 
+		// @todo AddCategory to firstWallet
 		const resetAction = NavigationActions.reset({
 			index: 0,
 			actions: [
