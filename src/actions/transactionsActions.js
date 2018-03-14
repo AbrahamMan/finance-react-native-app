@@ -26,13 +26,18 @@ const requestTransList = ({id}, callback) => ((dispatch) => {
 const storeTransactionSuccess = payload => ({ type: STORE_TRANSACTION_SUCCESS, payload });
 
 const storeTransaction = ({state, navigation, resetAction} ,callback) => ((dispatch, getState) => {
-	console.log('state', state);
+
+	const category = getState().CategoryReducer;
+	const type = category.selectedCategory.type;
+	const category_id = category.selectedCategory.id;
+
 	const payload = {
 		description: state.description,
 		amount: state.amount,
 		date: state.date,
-		type: state.type,
+		type,
 		wallet_id: state.wallet_id,
+		category_id,
 	};
 
 	request

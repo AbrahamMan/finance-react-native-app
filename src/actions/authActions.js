@@ -7,7 +7,7 @@ import request from '../helpers/request';
 
 const loginUserSuccess = payload => ({ type: LOGIN_USER_SUCCESS, payload });
 
-const loginUser = ({ payload, navigation, resetAction }) => (dispatch) =>{
+const loginUser = ({ payload }, callback, callbackError) => (dispatch) =>{
 
   console.log('payload loginUser', payload);
 
@@ -17,13 +17,28 @@ const loginUser = ({ payload, navigation, resetAction }) => (dispatch) =>{
     console.log('success', data);
     request.defaults.headers.common.Authorization = data.secret;
     await dispatch(loginUserSuccess(data));
-    navigation.dispatch(resetAction);
-    //callback && callback();
+    //navigation.dispatch(resetAction);
+    callback && callback();
   })
   .catch(({ message, ...others }) => {
     console.log('error', others);
-    //callback && callbackError();
+    callback && callbackError();
   });
+};
+
+const createNewUser = ({ payload }, callback, callbackError) => (dispatch) => {
+	request
+	.post('/register', payload)
+	.then(async ({ data }) => {
+		console.log('success', data);
+		request.defaults.headers.common.Authorization = data.secret;
+		await dispatch(loginUserSuccess(data));
+		callback && callback();
+	})
+	.catch(({ message, ...others }) => {
+		console.log('error', others);
+		callback && callbackError();
+	});
 };
 
 const doInitialLoad = () => (async (dispatch, getState) => {
@@ -45,4 +60,5 @@ export default {
   loginUser,
   doInitialLoad,
   logout,
+  createNewUser,
 };

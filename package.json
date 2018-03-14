@@ -15,6 +15,7 @@
     "react-native": "0.52.0",
     "react-native-app-intro": "^1.1.5",
     "react-native-calendars": "^1.16.1",
+    "react-native-easy-toast": "^1.1.0",
     "react-native-ios-status-bar-padding": "^1.1.0",
     "react-native-material-bottom-navigation": "^0.7.0",
     "react-native-modal": "^5.2.0",
