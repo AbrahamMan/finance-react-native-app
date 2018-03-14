@@ -7,10 +7,10 @@ import { Container, Header, Left, Button, Body, Right, Title, Content, Text, For
 import Toast from 'react-native-easy-toast';
 import authActions from '../actions/authActions';
 
-class Login extends Component {
+class Signup extends Component {
 
 	static navigationOptions = {
-	    title: 'Sign In',
+	    title: 'Create new account',
 	};
 
 	constructor(props) {
@@ -18,37 +18,19 @@ class Login extends Component {
 		this.state = {
 			email: '',
 			password: '',
-			showToast: false,
+			name: '',
 		};
-		this.login = this.login.bind(this);
-		this.signup = this.signup.bind(this);
+		this.createAccount = this.createAccount.bind(this);
 	}
 
-	componentWillMount() {
-		const { isLoggedIn, authActionsCreator, navigation } = this.props;
-
-		const resetAction = NavigationActions.reset({
-			index: 0,
-			actions: [
-				NavigationActions.navigate({
-					routeName: 'Vertical',
-				}),
-			],
-		});
-
-		if (isLoggedIn) {
-			authActionsCreator.doInitialLoad();
-			navigation.dispatch(resetAction);
-		}
-	}
-
-	login() {
-		const { email, password } = this.state;
+	createAccount() {
+		const { email, password, name } = this.state;
 		const { authActionsCreator, navigation } = this.props;
 
 		const payload = {
 			email,
 			password,
+			name,
 		};
 
 		const resetAction = NavigationActions.reset({
@@ -60,21 +42,15 @@ class Login extends Component {
 			],
 		});
 
-		authActionsCreator.loginUser({ payload }, () => {
+		authActionsCreator.createNewUser({ payload }, () => {
 			navigation.dispatch(resetAction);
 		}, () => {
 			if (Platform.OS === 'Android') {
-				ToastAndroid.show('Wrong email or password!', ToastAndroid.SHORT);
+				ToastAndroid.show('Email already exist!', ToastAndroid.SHORT);
 			} else {
-				this.refs.toast.show('Wrong email or password!');
+				this.refs.toast.show('Email already exist!');
 			}
 		});
-	}
-
-	signup(){
-		const { navigate } = this.props.navigation;
-
-		navigate('Signup');
 	}
 
 	render() {
@@ -84,6 +60,21 @@ class Login extends Component {
 			<Container style={{ backgroundColor: '#F6F7F9' }}>
 				<Content padder>
 					<Form padder>
+						<Item
+							rounded
+							style={{
+								marginLeft: 10,
+								margin: 10,
+								paddingHorizontal: 10,
+							}}
+						>
+							<Input
+								onChangeText={ (name) => this.setState({ name })}
+								placeholder="Name"
+								value={this.state.name}
+
+							/>
+						</Item>
 						<Item
 							rounded
 							style={{
@@ -117,22 +108,14 @@ class Login extends Component {
 							/>
 					    </Item>
 						<Button full rounded success
-							onPress={this.login}
+							onPress={this.createAccount}
 							style={{
 								margin: 20,
 								backgroundColor: '#3389EE',
 							}}
 						>
-							<Text>Login</Text>
+							<Text>Sign Up</Text>
 						</Button>
-						<TouchableOpacity 
-							style={signupStyle}
-							onPress={this.signup}
-						>
-							<Text style={signupTextStyle}>
-								Don't have an account? Sign up
-							</Text>
-						</TouchableOpacity>
 					</Form>
 				</Content>
 				<Toast ref="toast"/>
@@ -174,4 +157,4 @@ const mapDispatchToProps = dispatch => ({
 	authActionsCreator: bindActionCreators(authActions, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

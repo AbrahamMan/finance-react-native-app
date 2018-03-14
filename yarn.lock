@@ -4636,6 +4636,12 @@ react-native-easy-grid@0.1.15:
   dependencies:
     lodash "^4.11.1"
 
+react-native-easy-toast@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-easy-toast/-/react-native-easy-toast-1.1.0.tgz#7d3a34ed298d32c4827b8d43ddfab6a71b98a2e3"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-ios-status-bar-padding@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-native-ios-status-bar-padding/-/react-native-ios-status-bar-padding-1.1.0.tgz#a00b53a314cf334761832882d7a6209f3e1706b8"

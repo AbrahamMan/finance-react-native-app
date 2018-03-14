@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import authActions from '../actions/authActions';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { HeaderTop } from '../components/layouts';
-import request from '../helpers/request';
-import { Container, Header, Left, Button, Body, Right, Title, Content, Text,  Form, Item, Input, Label, Separator, ListItem } from 'native-base';
 import { NavigationActions } from 'react-navigation';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Container, Header, Left, Button, Body, Right, Title, Content, Text, Separator, ListItem } from 'native-base';
+import authActions from '../actions/authActions';
+
 
 class Profile extends Component {
 
 	static navigationOptions = {
-	    tabBarLabel: "Profile",
-	    swipeEnabled: false,
-	    tabBarIcon: () => <Icon size={24} name="person" color="#616161" />,
-	    activeLabelColor: '#3bb84a'
+		tabBarLabel: 'Profile',
+		swipeEnabled: false,
+		tabBarIcon: () => <Icon size={24} name="person" color="#616161" />,
+		activeLabelColor: '#3bb84a',
 	}
 
 	constructor(props) {
@@ -23,19 +21,19 @@ class Profile extends Component {
 		this.logout = this.logout.bind(this);
 	}
 
-	logout(){
+	logout() {
 		console.log('logout');
 		const { navigation } = this.props;
 
 		const resetAction = NavigationActions.reset({
-	        index: 0,
-	        actions: [
-	          NavigationActions.navigate({
-	            routeName: "Login"
-	          })
-	        ]
-	      });
-		this.props.userActionsCreator.logout({navigation, resetAction});
+			index: 0,
+			actions: [
+				NavigationActions.navigate({
+					routeName: 'Login',
+				}),
+			],
+		});
+		this.props.userActionsCreator.logout({ navigation, resetAction });
 	}
 
 	render() {

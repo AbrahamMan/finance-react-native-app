@@ -11,7 +11,7 @@ import { Container, Header, Left, Body, Right, Button, Icon, Title, Content, Lis
 class Add extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { amount: '', description: '', date: moment().format('YYYY-MM-DD'), type: '', wallet_id: '1', selectedCategory: '' };
+		this.state = { amount: '', description: '', date: moment().format('YYYY-MM-DD'), type: '', wallet_id: '1', category_id: '' };
 	}
 
 	componentWillMount() {
@@ -42,11 +42,7 @@ class Add extends Component {
 
 		const { selectedWalletId } = this.props.WalletReducer;
 
-		const { selectedCategory } = this.props.CategoryReducer;
-		console.log('selectedCategory', selectedCategory);
-		this.setState({ 
-			wallet_id: selectedWalletId.toString(), 
-			type: selectedCategory.type.toString() });
+		this.setState({ wallet_id: selectedWalletId.toString() });
 
 		const resetAction = NavigationActions.reset({
 			index: 0,
@@ -64,7 +60,6 @@ class Add extends Component {
 		const { container, button } = styles;
 		const { WalletReducer: wallets } = this.props;
 		const { categories, selectedCategory } = this.props.CategoryReducer;
-		console.log('CategoryReducer', this.props.CategoryReducer);
 		return (
 			<Container>
 
@@ -168,4 +163,4 @@ const mapDispatchToProps = dispatch => ({
 	categoryActions: bindActionCreators(categoryActions, dispatch),
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(Add);
+export default connect(mapStateToProps, mapDispatchToProps)(Add);
