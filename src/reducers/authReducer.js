@@ -9,7 +9,8 @@ import {
 
 const INITIAL_STATE = { 
 	loading: false,
-	isLoggedIn: false
+	isLoggedIn: false,
+	user: null,
 };
 
 export default (state = INITIAL_STATE, action) => {

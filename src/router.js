@@ -54,6 +54,9 @@ const Router = StackNavigator({
 	Signup: {
 		screen: Signup,
 	},
+	AddCategory: {
+		screen: AddCategory,
+	},
 	Tabs: {
 		screen: Tabs,
 		navigationOptions: () => ({

@@ -36,6 +36,13 @@ class Profile extends Component {
 		this.props.userActionsCreator.logout({ navigation, resetAction });
 	}
 
+	shouldComponentUpdate(nextProps) {
+		console.log('nextProps', nextProps);
+		const { user } = nextProps.AuthReducer;
+
+		return user !== null;
+	}
+
 	render() {
 		const { navigate } = this.props.navigation;
 		const { user } = this.props.AuthReducer;
