@@ -37,6 +37,7 @@ const storeTransaction = ({state, navigation, resetAction} ,callback) => ((dispa
 		date: state.date,
 		type,
 		wallet_id: state.wallet_id,
+		wallet_id_transfer: state.wallet_id_transfer,
 		category_id,
 	};
 

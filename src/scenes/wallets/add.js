@@ -11,7 +11,7 @@ import { Container, Header, Left, Body, Right, Button, Icon, Title, Content, Lis
 class Add extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { amount: '', description: '', date: moment().format('YYYY-MM-DD'), type: '', wallet_id: '1', category_id: '' };
+		this.state = { amount: '', description: '', date: moment().format('YYYY-MM-DD'), type: '', wallet_id: '1', category_id: '', wallet_id_transfer: '' };
 	}
 
 	componentWillMount() {
@@ -35,6 +35,12 @@ class Add extends Component {
 		console.log('navigate', navigate);
 
 		navigate('CategoryList', { categories });
+	}
+
+	chooseWalletTransfer = (wallets) => {
+		const { navigate } = this.props.navigation;
+
+		navigate('WalletTransfer', { wallets });
 	}
 
 	save = () => {
@@ -94,49 +100,53 @@ class Add extends Component {
 								style={{ color: 'white' }}
 							>
 								Save
-							</Text>	
+							</Text>
 						</TouchableOpacity>
 					</Right>
 				</Header>
 
 				<Content padder>
-				    <Item inlineLabel>
-		              <Label>RM</Label>
-		              <Input 
-		              	style={{height: 70, fontSize: 30 }}
-		              	onChangeText={(amount) => this.setState({amount})}
-		              	placeholder="0"
-		              />
-		            </Item>
-		            <TouchableOpacity
-		            	onPress={()=>{this.chooseCategory({categories})}}
-		            >
-				        <View style={{ flexDirection: 'row', paddingVertical: 10, }}>
-				            <Icon active name='ios-briefcase-outline' style={{fontSize: 30, flex: 1, alignSelf: 'center' }} />
-				            <Text style={{ flex: 9, alignSelf: 'center' }}>{selectedCategory.name}</Text>
-				        </View>
-			        </TouchableOpacity>
-				    <Item>
-			            <Icon active name='ios-help-circle-outline' style={{fontSize: 30}} />
-			            <Input placeholder='Category' onChangeText={(category) => this.setState({category})}/>
-			        </Item>
-				    <Item>
-			            <Icon active name='ios-document-outline' style={{fontSize: 35}} />
-			            <Input placeholder='Note' onChangeText={(description) => this.setState({description})}/>
-			        </Item>
-				    <Item>
-			            <Icon active name='ios-calendar-outline' style={{fontSize: 30}} />
-			            <Input placeholder='Today' onChangeText={(date) => this.setState({date})} value={this.state.date}/>
-			        </Item>
-			        <TouchableOpacity
-		            	onPress={()=>{this.chooseWallet({wallets: wallets.list})}}
-		            >
-				        <View style={{ flexDirection: 'row', paddingVertical: 10, }}>
-				            <Icon active name='ios-briefcase-outline' style={{fontSize: 30, flex: 1, alignSelf: 'center' }} />
-				            <Text style={{ flex: 9, alignSelf: 'center' }}>{wallets.name}</Text>
-				        </View>
-			        </TouchableOpacity>
-			    </Content>
+					<Item inlineLabel>
+						<Label>RM</Label>
+						<Input
+							style={{ height: 70, fontSize: 30 }}
+							onChangeText={ (amount) => this.setState({ amount })}
+							placeholder="0"
+						/>
+					</Item>
+					<TouchableOpacity
+						onPress={() => { this.chooseWalletTransfer({ wallets: wallets })}}
+					>
+						<View style={{ flexDirection: 'row', paddingVertical: 10, }}>
+							<Icon active name='ios-briefcase-outline' style={{fontSize: 30, flex: 1, alignSelf: 'center' }} />
+							<Text style={{ flex: 9, alignSelf: 'center' }}>{wallets.name}</Text>
+						</View>
+					</TouchableOpacity>
+					<TouchableOpacity
+						onPress={() => {this.chooseCategory({ categories })}}
+					>
+					<View style={{ flexDirection: 'row', paddingVertical: 10, }}>
+						<Icon active name='ios-briefcase-outline' style={{fontSize: 30, flex: 1, alignSelf: 'center' }} />
+						<Text style={{ flex: 9, alignSelf: 'center' }}>{selectedCategory.name}</Text>
+					</View>
+					</TouchableOpacity>
+						<Item>
+							<Icon active name='ios-document-outline' style={{fontSize: 35}} />
+							<Input placeholder='Note' onChangeText={(description) => this.setState({description})}/>
+						</Item>
+						<Item>
+							<Icon active name='ios-calendar-outline' style={{fontSize: 30}} />
+							<Input placeholder='Today' onChangeText={(date) => this.setState({date})} value={this.state.date}/>
+						</Item>
+					<TouchableOpacity
+						onPress={() => { this.chooseWallet({ wallets: wallets.list })}}
+					>
+						<View style={{ flexDirection: 'row', paddingVertical: 10, }}>
+							<Icon active name='ios-briefcase-outline' style={{fontSize: 30, flex: 1, alignSelf: 'center' }} />
+							<Text style={{ flex: 9, alignSelf: 'center' }}>{wallets.name}</Text>
+						</View>
+					</TouchableOpacity>
+				</Content>
 		    </Container>
 		);
 	}

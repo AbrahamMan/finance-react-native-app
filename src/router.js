@@ -11,6 +11,7 @@ import Edits from './scenes/wallets/edit';
 import Add from './scenes/wallets/add';
 import Date from './scenes/wallets/date';
 import WalletList from './scenes/wallets/list';
+import WalletTransfer from './scenes/wallets/transfer';
 import CategoryList from './scenes/categories/list';
 import AddCategory from './scenes/categories/add';
 
@@ -77,6 +78,12 @@ const Router = StackNavigator({
 	},
 	WalletList: {
 		screen: WalletList,
+		navigationOptions: () => ({
+			header: null,
+		}),
+	},
+	WalletTransfer: {
+		screen: WalletTransfer,
 		navigationOptions: () => ({
 			header: null,
 		}),
