@@ -10,6 +10,7 @@ class Single extends Component {
 
   render() {
   	const { item } = this.props;
+  	console.log('item', item);
     return (
       <TouchableOpacity onPress={this._onPress}>
         <CardSection>

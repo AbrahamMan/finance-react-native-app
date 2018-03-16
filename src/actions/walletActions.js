@@ -28,17 +28,30 @@ const requestWalletList = ({id}, callback) => ((dispatch) => {
 		});
 });
 
-const selectWallet = ({ id }, callback) => ((dispatch) => {
+const selectWallet = ({ id }, callback, callbackError) => ((dispatch) => {
 	dispatch(requestWalletList({ id }));
 	request
 		.get(`/transactions/${id}`)
 		.then(async ({ data }) => {
-
 			await dispatch(requestTransListSuccess(data));
 			callback && callback();
 		})
 		.catch(({ message, ...others }) => {
-			console.log('erorr', others)
+			console.log('failure', others);
+			callback && callbackError();
+		});
+});
+
+const createWallet = ({ payload }, callback, callbackError) => ((dispatch) => {
+	console.log('createWallet');
+	request
+		.post('/wallet/create', payload)
+		.then(async ({ data }) => {
+			console.log('success', data);
+			callback && callback();
+		})
+		.catch(({ message, ...others }) => {
+			console.log('failure', others);
 			callback && callbackError();
 		});
 });
@@ -46,4 +59,5 @@ const selectWallet = ({ id }, callback) => ((dispatch) => {
 export default {
 	requestWalletList,
 	selectWallet,
+	createWallet,
 };

@@ -12,7 +12,7 @@ import Add from './scenes/wallets/add';
 import Date from './scenes/wallets/date';
 import WalletList from './scenes/wallets/list';
 import CategoryList from './scenes/categories/list';
-
+import AddCategory from './scenes/categories/add';
 
 const Tabs = TabNavigator({
 	Wallets: { screen: Wallets },
@@ -87,17 +87,5 @@ const Router = StackNavigator({
 }, {
 	mode: 'modal',
 });
-
-// const Router = StackNavigator({
-// 	Login: {
-// 		screen: Login,
-// 	},
-// 	Signup: {
-// 		screen: Signup,
-// 	},
-// 	Vertical: {
-// 		screen: Vertical,
-// 	},
-// });
 
 export default Router;
