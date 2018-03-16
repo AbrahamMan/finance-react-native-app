@@ -31,7 +31,7 @@ class Login extends Component {
 			index: 0,
 			actions: [
 				NavigationActions.navigate({
-					routeName: 'Vertical',
+					routeName: 'Tabs',
 				}),
 			],
 		});
@@ -55,7 +55,7 @@ class Login extends Component {
 			index: 0,
 			actions: [
 				NavigationActions.navigate({
-					routeName: 'Vertical',
+					routeName: 'Tabs',
 				}),
 			],
 		});

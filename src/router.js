@@ -47,7 +47,13 @@ const Tabs = TabNavigator({
 	animationEnabled: false,
 });
 
-const Vertical = StackNavigator({
+const Router = StackNavigator({
+	Login: {
+		screen: Login,
+	},
+	Signup: {
+		screen: Signup,
+	},
 	Tabs: {
 		screen: Tabs,
 		navigationOptions: () => ({
@@ -82,16 +88,16 @@ const Vertical = StackNavigator({
 	mode: 'modal',
 });
 
-const Router = StackNavigator({
-	Login: {
-		screen: Login,
-	},
-	Signup: {
-		screen: Signup,
-	},
-	Vertical: {
-		screen: Vertical,
-	},
-});
+// const Router = StackNavigator({
+// 	Login: {
+// 		screen: Login,
+// 	},
+// 	Signup: {
+// 		screen: Signup,
+// 	},
+// 	Vertical: {
+// 		screen: Vertical,
+// 	},
+// });
 
 export default Router;

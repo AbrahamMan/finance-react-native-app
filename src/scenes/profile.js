@@ -38,53 +38,49 @@ class Profile extends Component {
 
 	render() {
 		const { navigate } = this.props.navigation;
+		const { user } = this.props.AuthReducer;
 		return (
-			<Container>
+			<Container style={{ backgroundColor: 'white' }}>
 				<Header style={{ backgroundColor: '#3bb84a' }}>
-		          <Left />
-		          <Body>
-		            <Title
-		            	style={{ color: 'white' }}
-		            >
-		            	Profile
-		            </Title>
-		          </Body>
-		          <Right />
-		        </Header>
-		        <Content>
-					<Separator bordered>
-						<Text>FORWARD</Text>
-					</Separator>
+					<Left />
+					<Body>
+						<Title
+							style={{ color: 'white' }}
+						>
+							Profile
+						</Title>
+					</Body>
+					<Right />
+				</Header>
+				<Content>
+					<ListItem itemDivider>
+						<Text>Name</Text>
+					</ListItem>
 					<ListItem >
-						<Text>Aaron Bennet</Text>
+						<Text>{user.name}</Text>
 					</ListItem>
-					<ListItem>
-						<Text>Claire Barclay</Text>
+					<ListItem itemDivider>
+						<Text>Email</Text>
 					</ListItem>
-					<ListItem last>
-						<Text>Kelso Brittany</Text>
+					<ListItem >
+						<Text>{user.email}</Text>
 					</ListItem>
-					<Separator bordered>
-						<Text>MIDFIELD</Text>
-					</Separator>
-					<ListItem>
-						<Text>Caroline Aaron</Text>
+					<ListItem itemDivider />
+					<ListItem onPress={this.logout}>
+						<Text>Logout</Text>
 					</ListItem>
-					<Button danger
-						onPress={this.logout}
-					>
-						<Text>
-							Logout
-						</Text>
-					</Button>		
-		        </Content>
+				</Content>
 			</Container>
 		);
 	}
 }
 
+const mapStateToProps = ({ AuthReducer }) => ({
+	AuthReducer,
+});
+
 const mapDispatchToProps = dispatch => ({
 	userActionsCreator: bindActionCreators(authActions, dispatch),
 });
 
-export default connect(null,mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
