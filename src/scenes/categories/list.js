@@ -1,11 +1,32 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Swiper from 'react-native-swiper';
 import { Container, Header, Left, Body, Right, Button, Icon, Title, Content, List, ListItem, Card, CardItem  } from 'native-base';
 import categoryActions from '../../actions/categoryActions';
+import { filterByType } from '../../selector/categorySelector';
 
 class CategoryList extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			type: '',
+		};
+	}
+
+	componentWillMount() {
+		const { categories } = this.props.navigation.state.params.categories;
+		const category = filterByType(categories);
+
+
+		console.log('category', category);
+
+		this.setState({ type: category.types, array: category.array });
+
+		console.log('this.state.type', this.state.type);
+	}
 
 	selectCategory = ({ category }) => {
 
@@ -15,6 +36,14 @@ class CategoryList extends Component {
 
 		this.props.navigation.goBack(null);
 	}
+
+	_renderItem = ({item}) => (
+		<View>
+			<Text>
+				{item.name}
+			</Text>
+		</View>
+	);
 
 	render() {
 		const { categories } = this.props.navigation.state.params.categories;
@@ -51,22 +80,27 @@ class CategoryList extends Component {
 				</Header>
 
 				<Content>
-					<Card>
+					<Swiper 
+						showsButtons={false}
+						loop={false}
+						onIndexChanged={this.changeDateSelection}
+					>
 						{
-							categories.map(category => {
+							this.state.array.map(categories => {
 								return (
-									<TouchableHighlight
-										onPress={() => { this.selectCategory({ category }); }}
-									>
-										<CardItem>
-											<Icon active name="logo-googleplus" />
-											<Text>{category.name}</Text>
-										</CardItem>
-									</TouchableHighlight>
-								);
+									<FlatList
+										// ListHeaderComponent={this.renderHeader}
+										style={{ flex: 6 }}
+									  	data={categories}
+									  	renderItem={this._renderItem}
+									  	keyExtractor={item => item.id}
+									/>
+								)
 							})
 						}
-					</Card>
+
+					</Swiper>
+
 				</Content>
 			</Container>
 		);

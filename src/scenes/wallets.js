@@ -143,7 +143,6 @@ class Wallets extends Component {
 									</View>	
 								</View>
 								<Swiper 
-									style={styles.wrapper} 
 									showsButtons={false}
 									loop={false}
 									onIndexChanged={this.changeDateSelection}
