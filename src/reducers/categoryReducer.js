@@ -1,6 +1,7 @@
 import {
 	REQUEST_CATEGORIES_LIST_SUCCESS,
 	SELECT_CATEGORY,
+	USER_LOGOUT,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -21,6 +22,9 @@ export default (state = INITIAL_STATE, action) => {
 			...state,
 			selectedCategory: payload,
 		};
+	case USER_LOGOUT:
+		console.log('Logging out');
+		return { ...INITIAL_STATE };
 	default:
 		return state;
 	}

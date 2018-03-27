@@ -15,6 +15,7 @@ const requestTransList = ({id}, callback) => ((dispatch) => {
 	request
 		.get(`/transactions/${id}`)
 		.then(async ({ data }) => {
+			console.log('data', data);
 			await dispatch(requestTransListSuccess(data));
 			callback && callback();
 		})
@@ -30,6 +31,7 @@ const storeTransaction = ({state, navigation, resetAction} ,callback) => ((dispa
 	const category = getState().CategoryReducer;
 	const type = category.selectedCategory.type;
 	const category_id = category.selectedCategory.id;
+	const category_image = category.selectedCategory.url;
 
 	const payload = {
 		description: state.description,
@@ -39,6 +41,7 @@ const storeTransaction = ({state, navigation, resetAction} ,callback) => ((dispa
 		wallet_id: state.wallet_id,
 		wallet_id_transfer: state.wallet_id_transfer,
 		category_id,
+		category_image,
 	};
 
 	request

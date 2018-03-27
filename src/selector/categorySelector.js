@@ -5,22 +5,20 @@ const getCategories = (state) => state;
 
 export const filterByType = createSelector(
   getCategories,
-  (categories) => {
+	(categories) => {
+		const types = _.keys(_.groupBy(categories, 'type'));
 
-	const types = _.keys(_.groupBy(categories, 'type'));
+		const array = [];
 
-	let array = [];
+		types.map(type => {
+			const dateCollection = _.filter(categories, { type });
 
-	types.map(type => {
-      let dateCollection =  _.filter(categories, { type });
+			array.push(dateCollection);
+		});
 
-      array.push(dateCollection);
-
-    })
-
-    return {
-    	types,
-    	array,
-    };
-  }
-)
+		return {
+			types,
+			array,
+		};
+	}
+);

@@ -15,7 +15,7 @@ class Single extends Component {
       <TouchableOpacity onPress={this._onPress}>
         <CardSection>
         	<Image
-        		source={require('./../../images/food.png')}
+        		source={{ uri: item.category_image }}
 				style={{
 					height: 50,
 					width: 50,

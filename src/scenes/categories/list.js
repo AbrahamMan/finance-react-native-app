@@ -3,7 +3,7 @@ import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Swiper from 'react-native-swiper';
-import { Container, Header, Left, Body, Right, Button, Icon, Title, Content, List, ListItem, Card, CardItem  } from 'native-base';
+import { Container, Header, Left, Body, Right, Button, Icon, Title, Content, List, ListItem, Card, CardItem, Thumbnail  } from 'native-base';
 import categoryActions from '../../actions/categoryActions';
 import { filterByType } from '../../selector/categorySelector';
 
@@ -14,6 +14,7 @@ class CategoryList extends Component {
 		this.state = {
 			type: '',
 		};
+		//this.selectCategory = this.selectCategory.bind(this);
 	}
 
 	componentWillMount() {
@@ -28,21 +29,25 @@ class CategoryList extends Component {
 		console.log('this.state.type', this.state.type);
 	}
 
-	selectCategory = ({ category }) => {
+	selectCategory = (category) => {
 
 		const { categoryActionsCreator } = this.props;
-
+		console.log('category', category);
 		categoryActionsCreator.selectCategory(category);
 
 		this.props.navigation.goBack(null);
 	}
 
 	_renderItem = ({item}) => (
-		<View>
-			<Text>
-				{item.name}
-			</Text>
-		</View>
+		<ListItem onPress={()=>this.selectCategory(item)} avatar style={{ paddingVertical: 5 }}>
+			<Left>
+				<Thumbnail source={{ uri: item.url }} style={{ width: 40, height: 40 }}/>
+			</Left>
+			<Body>
+				<Text>{item.name}</Text>
+			</Body>
+			<Right />
+		</ListItem>
 	);
 
 	render() {
@@ -79,9 +84,9 @@ class CategoryList extends Component {
 					</Right>
 				</Header>
 
-				<Content>
+				<View style={{ flex: 1 }}>
 					<Swiper 
-						showsButtons={false}
+						showsButtons={true}
 						loop={false}
 						onIndexChanged={this.changeDateSelection}
 					>
@@ -101,7 +106,7 @@ class CategoryList extends Component {
 
 					</Swiper>
 
-				</Content>
+				</View>
 			</Container>
 		);
 	}
