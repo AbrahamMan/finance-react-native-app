@@ -29,6 +29,7 @@ const storeTransactionSuccess = payload => ({ type: STORE_TRANSACTION_SUCCESS, p
 const storeTransaction = ({state, navigation, resetAction} ,callback) => ((dispatch, getState) => {
 
 	const category = getState().CategoryReducer;
+	const wallet = getState().WalletReducer;
 	const type = category.selectedCategory.type;
 	const category_id = category.selectedCategory.id;
 	const category_image = category.selectedCategory.url;
@@ -38,12 +39,13 @@ const storeTransaction = ({state, navigation, resetAction} ,callback) => ((dispa
 		amount: state.amount,
 		date: state.date,
 		type,
-		wallet_id: state.wallet_id,
-		wallet_id_transfer: state.wallet_id_transfer,
+		wallet_id: wallet.selectedWalletId,
+		wallet_id_transfer: wallet.selectedWalletTransfer.id,
 		category_id,
 		category_image,
 	};
 
+	console.log('payload', payload);
 	request
 		.post('/transaction', payload)
 		.then(async ({ data }) => {

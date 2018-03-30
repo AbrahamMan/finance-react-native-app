@@ -4,7 +4,8 @@ import {
 	REQUEST_WALLET_LIST_START,
 	REQUEST_WALLET_LIST_SUCCESS,
 	REQUEST_WALLET_LIST_FAILURE,
-	REQUEST_TRANS_LIST_SUCCESS
+	REQUEST_TRANS_LIST_SUCCESS,
+	SELECT_WALLET
 } from '../actions/types';
 
 
@@ -56,8 +57,11 @@ const createWallet = ({ payload }, callback, callbackError) => ((dispatch) => {
 		});
 });
 
+const selectWalletTransfer = payload => ({ type: SELECT_WALLET, payload });
+
 export default {
 	requestWalletList,
 	selectWallet,
 	createWallet,
+	selectWalletTransfer,
 };

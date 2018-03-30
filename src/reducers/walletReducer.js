@@ -3,13 +3,15 @@ import {
 	REQUEST_WALLET_LIST_SUCCESS,
 	REQUEST_WALLET_LIST_FAILURE,
 	USER_LOGOUT,
-	REQUEST_TRANS_LIST_SUCCESS
+	REQUEST_TRANS_LIST_SUCCESS,
+	SELECT_WALLET
 } from '../actions/types';
 
 const INITIAL_STATE = { 
 	balance: null,
 	isLoading: false,
 	selectedWalletId: '',
+	selectedWalletTransfer: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -37,6 +39,11 @@ export default (state = INITIAL_STATE, action) => {
 				...state,
 				...payload,
 				isLoading: false
+			};
+		case SELECT_WALLET:
+			return {
+				...state,
+				selectedWalletTransfer: payload,
 			};	
 		case USER_LOGOUT:
 			return { ...INITIAL_STATE };			

@@ -7,12 +7,12 @@ import walletActions from '../../actions/walletActions';
 
 class WalletTransfer extends Component {
 
-	selectWallet = (id) => {
+	selectWallet = ({wallet}) => {
   		const { walletActions } = this.props;
 
-  		walletActions.selectWallet(id, () => {
-  			this.props.navigation.goBack(null);
-  		});
+  		walletActions.selectWalletTransfer(wallet)
+
+  		this.props.navigation.goBack(null);
   	}
 
 	render() {
@@ -59,7 +59,7 @@ class WalletTransfer extends Component {
 							}
 							return (
 								<TouchableHighlight
-									onPress={() => { this.selectWallet({ id: wallet.id}) }}
+									onPress={() => { this.selectWallet({ wallet }) }}
 								>
 									<CardItem>
 										<Icon active name="logo-googleplus" />

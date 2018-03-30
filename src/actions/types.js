@@ -14,3 +14,4 @@ export const REQUEST_WALLET_LIST_FAILURE = 'request_wallet_list_failure';
 export const REQUEST_CATEGORIES_LIST_SUCCESS = 'request_categories_list_success';
 
 export const SELECT_CATEGORY = 'select_category';
+export const SELECT_WALLET = 'select_wallet';

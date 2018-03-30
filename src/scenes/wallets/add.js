@@ -46,12 +46,6 @@ class Add extends Component {
 	save = () => {
 		const { transactionsActions, navigation } = this.props;
 
-		const { selectedWalletId } = this.props.WalletReducer;
-
-		this.setState({ wallet_id: selectedWalletId.toString() });
-
-		console.log('wallet_id', this.state.wallet_id);
-
 		const resetAction = NavigationActions.reset({
 			index: 0,
 			actions: [
@@ -69,6 +63,7 @@ class Add extends Component {
 		const { WalletReducer: wallets } = this.props;
 		const { categories, selectedCategory } = this.props.CategoryReducer;
 		console.log('selectedCategory', selectedCategory);
+		console.log('wallets', wallets);
 		return (
 			<Container>
 
@@ -118,16 +113,6 @@ class Add extends Component {
 							keyboardType="numeric"
 						/>
 					</Item>
-					{	selectedCategory.type == 'transfer' &&
-						<TouchableOpacity
-							onPress={() => { this.chooseWalletTransfer({ wallets: wallets })}}
-						>
-							<View style={{ flexDirection: 'row', paddingVertical: 10, }}>
-								<Icon active name='ios-briefcase-outline' style={{fontSize: 30, flex: 1, alignSelf: 'center' }} />
-								<Text style={{ flex: 9, alignSelf: 'center' }}>{wallets.name}</Text>
-							</View>
-						</TouchableOpacity>
-					}
 					<ListItem onPress={()=>this.chooseCategory({ categories })} avatar style={{ paddingVertical: 5 }}>
 						<Left>
 							<Thumbnail source={{ uri: selectedCategory.url }} style={{ width: 40, height: 40 }}/>
@@ -153,6 +138,16 @@ class Add extends Component {
 							<Text style={{ flex: 9, alignSelf: 'center' }}>{wallets.name}</Text>
 						</View>
 					</TouchableOpacity>
+					{	selectedCategory.type == 'transfer' &&
+						<TouchableOpacity
+							onPress={() => { this.chooseWalletTransfer({ wallets: wallets })}}
+						>
+							<View style={{ flexDirection: 'row', paddingVertical: 10, }}>
+								<Icon active name='ios-briefcase-outline' style={{fontSize: 30, flex: 1, alignSelf: 'center' }} />
+								<Text style={{ flex: 9, alignSelf: 'center' }}>{wallets.selectedWalletTransfer.name}</Text>
+							</View>
+						</TouchableOpacity>
+					}
 				</Content>
 		    </Container>
 		);
