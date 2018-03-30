@@ -1,50 +1,41 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, TextInput } from 'react-native';
+import { View, ToastAndroid, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import transactionsActions from '../../actions/transactionsActions';
-import categoryActions from '../../actions/categoryActions';
+import Toast from 'react-native-easy-toast';
 import { NavigationActions } from 'react-navigation';
-import moment from 'moment';
-import { Container, Header, Left, Body, Right, Button, Icon, Title, Content, List, ListItem, Card, CardItem, Text, Item, Input, Label, Thumbnail  } from 'native-base';
+import { Container, Header, Left, Button, Body, Right, Title, Content, Text, Form, Item, Input, Label, Fab, Icon } from 'native-base';
+import walletActions from '../../actions/walletActions';
 
-class Add extends Component {
+class AddWallet extends Component{
+
+	static navigationOptions = ({ navigation }) => {
+		const { params = {} } = navigation.state;
+		return{
+		    title: 'Add wallet',
+		    headerRight: <Button title="Save" onPress={() => params.handleSave()} />
+        };
+	};
+
 	constructor(props) {
 		super(props);
-		this.state = { amount: '', description: '', date: moment().format('YYYY-MM-DD'), type: '', wallet_id: '1', category_id: '', wallet_id_transfer: '' };
+		this.state = {
+			balance: '0',
+			name: 'Cash',
+		};
+		this.createWallet = this.createWallet.bind(this);
 	}
 
-	componentWillMount() {
-		const { selectedWalletId } = this.props.WalletReducer;
-		const { categoryActions } = this.props;
+	createWallet = () => {
+		const { balance, name } = this.state;
+		const { walletActionsCreator, navigation } = this.props;
 
-		categoryActions.requestCategoriesList();
+		const payload = {
+			balance,
+			name,
+		};
 
-		this.setState({ wallet_id: selectedWalletId.toString() });
-	}
-
-	chooseWallet = (wallets) => {
-		const { navigate } = this.props.navigation;
-
-		navigate('WalletList', { wallets });
-	}
-
-	chooseCategory = (categories) => {
-		const { navigate } = this.props.navigation;
-
-		console.log('navigate', navigate);
-
-		navigate('CategoryList', { categories });
-	}
-
-	chooseWalletTransfer = (wallets) => {
-		const { navigate } = this.props.navigation;
-
-		navigate('WalletTransfer', { wallets });
-	}
-
-	save = () => {
-		const { transactionsActions, navigation } = this.props;
+		console.log('payload', payload);
 
 		const resetAction = NavigationActions.reset({
 			index: 0,
@@ -55,124 +46,63 @@ class Add extends Component {
 			],
 		});
 
-		transactionsActions.storeTransaction({ state: this.state, navigation, resetAction });
+		walletActionsCreator.createWallet({ payload }, () => {
+			navigation.dispatch(resetAction);
+		}, () => {
+			if (Platform.OS === 'Android') {
+				ToastAndroid.show('Failed to create wallet', ToastAndroid.SHORT);
+			} else {
+				this.refs.toast.show('Failed to create wallet');
+			}
+		});
 	}
 
-	render() {
-		const { container, button } = styles;
-		const { WalletReducer: wallets } = this.props;
-		const { categories, selectedCategory } = this.props.CategoryReducer;
-		console.log('selectedCategory', selectedCategory);
-		console.log('wallets', wallets);
-		return (
-			<Container>
+	componentDidMount() {
+      this.props.navigation.setParams({ handleSave: this.createWallet });
+    }
 
-				<Header style={{ backgroundColor: '#3bb84a' }}>
-					<Left>
-						<TouchableOpacity
-							onPress={()=>this.props.navigation.goBack(null)}
-						>
-							<Icon 
-								name='md-close'
-								style={{
-			          				color: 'white' 
-			          			}}
-							/>
-						</TouchableOpacity>
-					</Left>
-					<Body>
-						<Title
-							style={{ 
-		            			alignSelf: 'center',
-		            			color: 'white' 
-		            		}}
-						>
-							Add Transaction
-						</Title>
-					</Body>
-					<Right>
-						<TouchableOpacity
-							onPress={this.save}
-						>
-							<Text
-								style={{ color: 'white' }}
-							>
-								Save
-							</Text>
-						</TouchableOpacity>
-					</Right>
-				</Header>
+	
 
+	render(){
+		return(
+			<Container style={{ backgroundColor: '#F6F7F9' }}>
 				<Content padder>
-					<Item inlineLabel>
-						<Label>RM</Label>
+					<Item
+						floatingLabel
+					>
+						<Label>Name</Label>
 						<Input
-							style={{ height: 70, fontSize: 30 }}
-							onChangeText={ (amount) => this.setState({ amount })}
-							placeholder="0"
-							keyboardType="numeric"
+							onChangeText={ (name) => this.setState({ name })}
+							value={this.state.name}
+
 						/>
 					</Item>
-					<ListItem onPress={()=>this.chooseCategory({ categories })} avatar style={{ paddingVertical: 5 }}>
-						<Left>
-							<Thumbnail source={{ uri: selectedCategory.url }} style={{ width: 40, height: 40 }}/>
-						</Left>
-						<Body>
-							<Text>{selectedCategory.name}</Text>
-						</Body>
-						<Right />
-					</ListItem>
-					<Item>
-						<Icon active name='ios-document-outline' style={{fontSize: 35}} />
-						<Input placeholder='Note' onChangeText={(description) => this.setState({description})}/>
-					</Item>
-					<Item>
-						<Icon active name='ios-calendar-outline' style={{fontSize: 30}} />
-						<Input placeholder='Today' onChangeText={(date) => this.setState({date})} value={this.state.date}/>
-					</Item>
-					<TouchableOpacity
-						onPress={() => { this.chooseWallet({ wallets: wallets.list })}}
+					<Item
+						floatingLabel
 					>
-						<View style={{ flexDirection: 'row', paddingVertical: 10, }}>
-							<Icon active name='ios-briefcase-outline' style={{fontSize: 30, flex: 1, alignSelf: 'center' }} />
-							<Text style={{ flex: 9, alignSelf: 'center' }}>{wallets.name}</Text>
-						</View>
-					</TouchableOpacity>
-					{	selectedCategory.type == 'transfer' &&
-						<TouchableOpacity
-							onPress={() => { this.chooseWalletTransfer({ wallets: wallets })}}
-						>
-							<View style={{ flexDirection: 'row', paddingVertical: 10, }}>
-								<Icon active name='ios-briefcase-outline' style={{fontSize: 30, flex: 1, alignSelf: 'center' }} />
-								<Text style={{ flex: 9, alignSelf: 'center' }}>{wallets.selectedWalletTransfer.name}</Text>
-							</View>
-						</TouchableOpacity>
-					}
+						<Label>Balance</Label>
+						<Input
+							onChangeText={ (balance) => this.setState({ balance })}
+							value={this.state.balance}
+
+						/>
+					</Item>
 				</Content>
-		    </Container>
-		);
+				<Fab
+						active={this.state.active}
+						style={{ backgroundColor: '#3bb84a',  }}
+						onPress={this.createWallet}
+					>
+						<Icon name="check" />
+					</Fab>	
+				<Toast ref="toast"/>
+			</Container>
+		)
 	}
 }
-
-const styles = {
-	container: {
-		padding: 16,
-		flex: 1,
-		backgroundColor: '#ffffff',
-	},
-	button: {
-		marginTop: 10,
-	}
-}
-
-const mapStateToProps = ({ WalletReducer, CategoryReducer }) => ({
-	WalletReducer,
-	CategoryReducer,
-});
 
 const mapDispatchToProps = dispatch => ({
-	transactionsActions: bindActionCreators(transactionsActions, dispatch),
-	categoryActions: bindActionCreators(categoryActions, dispatch),
+	walletActionsCreator: bindActionCreators(walletActions, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Add);
+export default connect(null, mapDispatchToProps)(AddWallet);

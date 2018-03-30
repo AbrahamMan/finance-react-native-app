@@ -7,7 +7,7 @@ import { NavigationActions } from 'react-navigation';
 import { Container, Header, Left, Button, Body, Right, Title, Content, Text, Form, Item, Input, Label } from 'native-base';
 import walletActions from '../../actions/walletActions';
 
-class AddCategory extends Component{
+class AddFirstWallet extends Component{
 
 	// static navigationOptions = {
 	//     title: 'Add wallet',
@@ -109,4 +109,4 @@ const mapDispatchToProps = dispatch => ({
 	walletActionsCreator: bindActionCreators(walletActions, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(AddCategory);
+export default connect(null, mapDispatchToProps)(AddFirstWallet);

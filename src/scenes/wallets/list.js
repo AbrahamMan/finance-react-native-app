@@ -2,10 +2,17 @@ import React, { Component } from 'react';
 import { View, Text, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Container, Header, Left, Body, Right, Button, Icon, Title, Content, List, ListItem, Card, CardItem  } from 'native-base';
+import { Container, Header, Left, Body, Right, Button, Icon, Title, Content, List, ListItem, Card, CardItem, Fab  } from 'native-base';
 import walletActions from '../../actions/walletActions';
 
 class WalletList extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+	      active: 'true'
+	    };
+	}
 
 	selectWallet = (id) => {
   		const { walletActions } = this.props;
@@ -18,6 +25,7 @@ class WalletList extends Component {
 	render() {
 
 		const { wallets } = this.props.navigation.state.params.wallets;
+		const { navigate } = this.props.navigation;
 
 		console.log('navigation', this.props.navigation);
 
@@ -71,6 +79,13 @@ class WalletList extends Component {
 					}
 					</Card>
 				</Content>
+				<Fab
+					active={this.state.active}
+					style={{ backgroundColor: '#3bb84a',  }}
+					onPress={() => navigate('AddWallet')}
+				>
+					<Icon name="add" />
+				</Fab>	
 			</Container>
 		);
 	}

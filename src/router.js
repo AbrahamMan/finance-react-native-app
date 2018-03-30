@@ -7,13 +7,14 @@ import Signup from './scenes/signup';
 import Dashboard from './scenes/dashboard';
 import Profile from './scenes/profile';
 import Wallets from './scenes/wallets';
-import Edits from './scenes/wallets/edit';
-import Add from './scenes/wallets/add';
-import Date from './scenes/wallets/date';
+import Edits from './scenes/transactions/edit';
+import Add from './scenes/transactions/add';
+import Date from './scenes/transactions/date';
 import WalletList from './scenes/wallets/list';
-import WalletTransfer from './scenes/wallets/transfer';
+import WalletTransfer from './scenes/transactions/transfer';
 import CategoryList from './scenes/categories/list';
-import AddCategory from './scenes/categories/add';
+import AddFirstWallet from './scenes/wallets/firstWallet';
+import AddWallet from './scenes/wallets/add';
 
 const Tabs = TabNavigator({
 	Wallets: { screen: Wallets },
@@ -55,8 +56,11 @@ const Router = StackNavigator({
 	Signup: {
 		screen: Signup,
 	},
-	AddCategory: {
-		screen: AddCategory,
+	AddFirstWallet: {
+		screen: AddFirstWallet,
+	},
+	AddWallet: {
+		screen: AddWallet,
 	},
 	Tabs: {
 		screen: Tabs,
